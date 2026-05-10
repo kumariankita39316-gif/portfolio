@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ankita Kumari — Digital Marketer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A0A0F;
+  --page:#F7F6F2;
+  --accent:#E8D5B0;
+  --muted:#6B6B78;
+  --rule:rgba(10,10,15,.12);
+  --white:#FFFFFF;
+  --highlight:#C9A96E;
+  --green:#2A4A3A;
+  --green-light:#D4E8DC;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Syne',sans-serif;
+  background:var(--page);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+
+/* ─── CURSOR ─── */
+.cursor{
+  position:fixed;width:8px;height:8px;background:var(--ink);border-radius:50%;
+  pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
+  transition:transform .12s ease,background .2s,width .2s,height .2s;
+}
+.cursor-ring{
+  position:fixed;width:36px;height:36px;border:1px solid rgba(10,10,15,.35);
+  border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
+  transition:transform .25s ease,width .25s,height .25s,border-color .25s;
+}
+body.hovering .cursor{width:16px;height:16px;background:var(--highlight)}
+body.hovering .cursor-ring{width:56px;height:56px;border-color:var(--highlight)}
+@media(pointer:coarse){.cursor,.cursor-ring{display:none}}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:400;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem 3rem;
+  mix-blend-mode:normal;
+}
+nav::after{
+  content:'';position:absolute;inset:0;
+  background:rgba(247,246,242,.9);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--rule);z-index:-1;
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:300;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;
+}
+.nav-links{display:flex;gap:2.5rem;align-items:center}
+.nav-links a{
+  font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;color:var(--muted);transition:color .2s;
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{
+  font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  padding:.55rem 1.4rem;border:1px solid var(--ink);border-radius:2px;
+  text-decoration:none;color:var(--ink);transition:background .2s,color .2s;
+}
+.nav-cta:hover{background:var(--ink);color:var(--page)}
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:4px;
+}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--ink);transition:transform .3s,opacity .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ─── MOBILE MENU ─── */
+.mobile-menu{
+  display:none;position:fixed;inset:0;z-index:390;
+  background:var(--page);
+  flex-direction:column;justify-content:center;padding:3rem;
+  gap:2rem;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.mobile-menu.open{opacity:1;pointer-events:all}
+.mobile-menu a{
+  font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;
+  text-decoration:none;color:var(--ink);letter-spacing:.02em;
+  border-bottom:1px solid var(--rule);padding-bottom:1.5rem;
+  transition:color .2s;
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--highlight)}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;display:grid;
+  grid-template-columns:1fr 1fr;
+  padding:0;overflow:hidden;
+}
+.hero-left{
+  background:var(--ink);color:var(--page);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:8rem 3.5rem 4rem;position:relative;overflow:hidden;
+}
+.hero-number{
+  position:absolute;top:50%;right:-1rem;transform:translateY(-50%);
+  font-family:'Cormorant Garamond',serif;font-size:clamp(12rem,22vw,20rem);
+  font-weight:300;opacity:.06;line-height:1;pointer-events:none;color:var(--page);
+  user-select:none;white-space:nowrap;
+}
+.hero-label{
+  font-size:.65rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--highlight);margin-bottom:2rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.hero-label::before{content:'';width:2rem;height:1px;background:var(--highlight)}
+.hero-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.5rem,8vw,6.5rem);font-weight:300;line-height:1;
+  letter-spacing:-.01em;
+}
+.hero-name em{font-style:italic;color:var(--highlight)}
+.hero-tagline{
+  font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:300;
+  color:rgba(247,246,242,.55);line-height:1.7;margin-top:2rem;max-width:380px;
+}
+.hero-scroll{
+  margin-top:3rem;display:flex;align-items:center;gap:1rem;
+  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,246,242,.35);
+}
+.hero-scroll-line{width:3rem;height:1px;background:rgba(247,246,242,.2)}
+
+.hero-right{
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:8rem 3.5rem 4rem;border-left:1px solid var(--rule);
+}
+.hero-stats{display:flex;flex-direction:column;gap:2.5rem;margin-top:auto}
+.hero-stat-item{display:flex;flex-direction:column;gap:.3rem;padding-top:1.5rem;border-top:1px solid var(--rule)}
+.hero-stat-num{
+  font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;
+  color:var(--ink);line-height:1;
+}
+.hero-stat-label{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.hero-intro{
+  font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;
+  line-height:1.75;color:var(--muted);max-width:360px;
+}
+
+/* ─── MARQUEE ─── */
+.marquee-strip{
+  background:var(--highlight);padding:.75rem 0;overflow:hidden;
+  border-top:1px solid rgba(201,169,110,.3);border-bottom:1px solid rgba(201,169,110,.3);
+}
+.marquee-track{
+  display:flex;gap:3rem;white-space:nowrap;
+  animation:marquee 28s linear infinite;
+}
+.marquee-item{
+  font-size:.65rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink);display:flex;align-items:center;gap:3rem;white-space:nowrap;
+}
+.marquee-item::after{content:'·';color:rgba(10,10,15,.35)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─── ABOUT ─── */
+.about{
+  display:grid;grid-template-columns:1fr 2fr;
+  border-bottom:1px solid var(--rule);
+}
+.about-sidebar{
+  padding:5rem 3rem;border-right:1px solid var(--rule);
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.sidebar-label{
+  font-size:.62rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--muted);writing-mode:vertical-rl;transform:rotate(180deg);
+}
+.sidebar-num{
+  font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;
+  color:var(--muted);letter-spacing:.1em;
+}
+.about-main{padding:5rem 4rem}
+.section-kicker{
+  font-size:.62rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--highlight);margin-bottom:2rem;display:flex;align-items:center;gap:1rem;
+}
+.section-kicker::before{content:'';width:2.5rem;height:1px;background:var(--highlight)}
+.about-headline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.1;
+  margin-bottom:2.5rem;
+}
+.about-headline em{font-style:italic;color:var(--highlight)}
+.about-body{
+  display:grid;grid-template-columns:1fr 1fr;gap:3rem;
+}
+.about-copy p{
+  font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;
+  line-height:1.8;color:var(--muted);margin-bottom:1.25rem;
+}
+.about-copy p strong{color:var(--ink);font-weight:600}
+.expertise-list{display:flex;flex-direction:column;gap:0}
+.expertise-item{
+  padding:.85rem 0;border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink);transition:color .2s;cursor:default;
+}
+.expertise-item:first-child{border-top:1px solid var(--rule)}
+.expertise-item::after{content:'→';color:var(--highlight);font-size:.9rem;opacity:0;transition:opacity .2s,transform .2s;transform:translateX(-4px)}
+.expertise-item:hover{color:var(--highlight)}
+.expertise-item:hover::after{opacity:1;transform:translateX(0)}
+
+/* ─── SERVICES ─── */
+.services{border-bottom:1px solid var(--rule)}
+.services-header{
+  padding:4rem 4rem 3rem;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  border-bottom:1px solid var(--rule);
+}
+.services-headline{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);
+  font-weight:300;line-height:1;
+}
+.services-count{
+  font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;
+  color:var(--muted);font-style:italic;
+}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+.service-item{
+  padding:3rem;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  transition:background .25s;position:relative;overflow:hidden;
+}
+.service-item:nth-child(3n){border-right:none}
+.service-item:nth-last-child(-n+3){border-bottom:none}
+.service-item::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:var(--highlight);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s ease;
+}
+.service-item:hover{background:rgba(201,169,110,.05)}
+.service-item:hover::before{transform:scaleX(1)}
+.service-num{
+  font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:300;
+  color:var(--muted);margin-bottom:1.75rem;
+}
+.service-name{
+  font-size:.85rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:1rem;
+}
+.service-desc{
+  font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;
+  line-height:1.75;color:var(--muted);
+}
+.service-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.5rem}
+.stag{
+  font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:.3rem .75rem;background:transparent;
+  border:1px solid var(--rule);color:var(--muted);border-radius:1px;
+  transition:border-color .2s,color .2s;
+}
+.service-item:hover .stag{border-color:rgba(201,169,110,.4);color:var(--ink)}
+
+/* ─── WORK ─── */
+.work{border-bottom:1px solid var(--rule)}
+.work-header{
+  padding:4rem 4rem 3rem;
+  border-bottom:1px solid var(--rule);
+}
+.work-headline{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);
+  font-weight:300;line-height:1;
+}
+.work-subline{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--muted);font-weight:300;font-style:italic;margin-top:.5rem}
+.work-grid{display:grid;grid-template-columns:repeat(2,1fr)}
+.work-item{
+  border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  overflow:hidden;position:relative;
+}
+.work-item:nth-child(even){border-right:none}
+.work-item.span2{grid-column:span 2;border-right:none;display:grid;grid-template-columns:1fr 1fr}
+.work-visual{
+  height:220px;display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;
+  position:relative;overflow:hidden;transition:transform .4s ease;
+}
+.work-item.span2 .work-visual{height:auto;min-height:280px}
+.work-item:hover .work-visual{transform:scale(1.02)}
+/* color swatches */
+.c1{background:#1A1A2E;color:#D4B896}
+.c2{background:#2A2A1A;color:#D4C896}
+.c3{background:#1A2A1A;color:#96D4B8}
+.c4{background:#2A1A1A;color:#D49680}
+.c5{background:#1A1A2A;color:#9680D4}
+.c6{background:#2A1A2A;color:#D496C8}
+.c7{background:#1A2A2A;color:#96C8D4}
+.c8{background:#2A2A2A;color:#C8C8C8}
+.c9{background:#2A1A10;color:#D4A880}
+.work-meta{padding:2rem 2.5rem}
+.work-cat{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--highlight);margin-bottom:.75rem}
+.work-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;margin-bottom:.75rem}
+.work-desc{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+.work-scope{display:flex;flex-wrap:wrap;gap:.35rem}
+.scope-tag{
+  font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  padding:.25rem .6rem;background:var(--ink);color:var(--page);border-radius:1px;
+}
+.work-links{display:flex;gap:.75rem;margin-top:1.25rem;flex-wrap:wrap}
+.wlink{
+  display:inline-flex;align-items:center;gap:.35rem;
+  font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;color:var(--muted);border-bottom:1px solid var(--rule);
+  padding-bottom:.2rem;transition:color .2s,border-color .2s;
+}
+.wlink:hover{color:var(--highlight);border-color:var(--highlight)}
+
+/* ─── TOOLS ─── */
+.tools{border-bottom:1px solid var(--rule)}
+.tools-header{
+  padding:4rem 4rem 3rem;border-bottom:1px solid var(--rule);
+  display:flex;align-items:flex-end;justify-content:space-between;
+}
+.tools-headline{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);
+  font-weight:300;line-height:1;
+}
+.tools-grid{display:grid;grid-template-columns:repeat(6,1fr)}
+.tool-item{
+  padding:2rem 1.5rem;border-right:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);text-align:center;
+  transition:background .2s;cursor:default;
+}
+.tool-item:nth-child(6n){border-right:none}
+.tool-item:nth-last-child(-n+6){border-bottom:none}
+.tool-item:hover{background:rgba(201,169,110,.07)}
+.tool-icon{width:32px;height:32px;margin:0 auto .75rem;display:flex;align-items:center;justify-content:center}
+.tool-icon img{width:32px;height:32px;object-fit:contain;border-radius:6px}
+.tool-name{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.2rem}
+.tool-cat{font-size:.6rem;color:var(--muted);letter-spacing:.05em}
+
+/* ─── CONTACT ─── */
+.contact{
+  display:grid;grid-template-columns:1fr 1fr;min-height:50vh;
+}
+.contact-left{
+  background:var(--ink);color:var(--page);
+  padding:5rem 4rem;display:flex;flex-direction:column;justify-content:space-between;
+}
+.contact-headline{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:300;line-height:1.05;
+}
+.contact-headline em{font-style:italic;color:var(--highlight)}
+.contact-sub{
+  font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:300;
+  color:rgba(247,246,242,.5);line-height:1.7;margin-top:1.5rem;
+}
+.contact-right{
+  padding:5rem 4rem;display:flex;flex-direction:column;justify-content:center;gap:0;
+}
+.contact-link-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem 0;border-bottom:1px solid var(--rule);
+  text-decoration:none;color:var(--ink);
+  transition:color .2s;group:true;
+}
+.contact-link-item:first-child{border-top:1px solid var(--rule)}
+.contact-link-item:hover{color:var(--highlight)}
+.cli-label{font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.cli-value{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;color:var(--muted);transition:color .2s}
+.contact-link-item:hover .cli-value{color:var(--highlight)}
+.cli-arrow{font-size:.9rem;color:var(--highlight);opacity:0;transform:translateX(-6px);transition:opacity .2s,transform .2s}
+.contact-link-item:hover .cli-arrow{opacity:1;transform:translateX(0)}
+
+/* ─── FOOTER ─── */
+footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem 4rem;border-top:1px solid var(--rule);
+  font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);
+}
+
+/* ─── SCROLL ANIMATIONS ─── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-24px);transition:opacity .8s ease,transform .8s ease}
+.reveal-left.in{opacity:1;transform:translateX(0)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1100px){
+  .tools-grid{grid-template-columns:repeat(4,1fr)}
+  .tool-item:nth-child(6n){border-right:1px solid var(--rule)}
+  .tool-item:nth-child(4n){border-right:none}
+  .tool-item:nth-last-child(-n+6){border-bottom:1px solid var(--rule)}
+  .tool-item:nth-last-child(-n+4){border-bottom:none}
+}
+@media(max-width:900px){
+  nav{padding:1.2rem 1.5rem}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .mobile-menu{display:flex}
+
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{padding:7rem 1.75rem 3rem;min-height:60vh}
+  .hero-right{padding:3rem 1.75rem 3.5rem;border-left:none;border-top:1px solid rgba(247,246,242,.1)}
+  .hero-stats{gap:1.5rem}
+  .hero-stat-num{font-size:2.8rem}
+  .hero-intro{display:none}
+
+  .about{grid-template-columns:1fr}
+  .about-sidebar{display:none}
+  .about-main{padding:3.5rem 1.75rem}
+  .about-body{grid-template-columns:1fr;gap:2rem}
+
+  .services-header{padding:3rem 1.75rem;flex-direction:column;align-items:flex-start;gap:1rem}
+  .services-grid{grid-template-columns:1fr}
+  .service-item{border-right:none}
+  .service-item:nth-child(3n){border-right:none}
+  .service-item:nth-last-child(-n+3){border-bottom:1px solid var(--rule)}
+  .service-item:last-child{border-bottom:none}
+
+  .work-header{padding:3rem 1.75rem}
+  .work-grid{grid-template-columns:1fr}
+  .work-item{border-right:none}
+  .work-item:nth-child(even){border-right:none}
+  .work-item.span2{grid-column:1;display:block}
+  .work-item.span2 .work-visual{min-height:200px}
+
+  .tools-header{padding:3rem 1.75rem;flex-direction:column;align-items:flex-start;gap:1rem}
+  .tools-grid{grid-template-columns:repeat(3,1fr)}
+  .tool-item:nth-child(6n){border-right:1px solid var(--rule)}
+  .tool-item:nth-child(3n){border-right:none}
+  .tool-item:nth-last-child(-n+4){border-bottom:1px solid var(--rule)}
+  .tool-item:nth-last-child(-n+3){border-bottom:none}
+
+  .contact{grid-template-columns:1fr}
+  .contact-left{padding:3.5rem 1.75rem;min-height:auto}
+  .contact-right{padding:3rem 1.75rem}
+
+  footer{flex-direction:column;gap:.4rem;text-align:center;padding:1.2rem 1.5rem}
+}
+@media(max-width:540px){
+  .tools-grid{grid-template-columns:repeat(2,1fr)}
+  .tool-item:nth-child(3n){border-right:1px solid var(--rule)}
+  .tool-item:nth-child(2n){border-right:none}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#services" onclick="closeMobileMenu()">Services</a>
+  <a href="#work" onclick="closeMobileMenu()">Work</a>
+  <a href="#tools" onclick="closeMobileMenu()">Tools</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">Ankita Kumari</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#tools">Tools</a>
+    <a href="#contact" class="nav-cta">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-number">AK</div>
+    <div class="hero-label">Digital Marketer · Noida</div>
+    <h1 class="hero-name">Ankita<br><em>Kumari</em></h1>
+    <p class="hero-tagline">I help brands grow online — through paid campaigns, sharp content, and websites that convert.</p>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      Scroll to explore
+    </div>
+  </div>
+  <div class="hero-right">
+    <p class="hero-intro reveal">Currently at Blank Pages, I manage the full digital stack for e-commerce and consumer brands — from strategy to execution.</p>
+    <div class="hero-stats">
+      <div class="hero-stat-item reveal">
+        <div class="hero-stat-num">12+</div>
+        <div class="hero-stat-label">Brands Managed</div>
+      </div>
+      <div class="hero-stat-item reveal">
+        <div class="hero-stat-num">1+</div>
+        <div class="hero-stat-label">Year Experience</div>
+      </div>
+      <div class="hero-stat-item reveal">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">CMS Platforms</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <div class="marquee-item">Social Media Management</div>
+    <div class="marquee-item">Meta &amp; Google Ads</div>
+    <div class="marquee-item">Shopify · WordPress · Wix</div>
+    <div class="marquee-item">SEO &amp; Content Strategy</div>
+    <div class="marquee-item">E-commerce Marketing</div>
+    <div class="marquee-item">GA4 Analytics</div>
+    <div class="marquee-item">Campaign Strategy</div>
+    <div class="marquee-item">Script Writing</div>
+    <!-- duplicate for seamless loop -->
+    <div class="marquee-item">Social Media Management</div>
+    <div class="marquee-item">Meta &amp; Google Ads</div>
+    <div class="marquee-item">Shopify · WordPress · Wix</div>
+    <div class="marquee-item">SEO &amp; Content Strategy</div>
+    <div class="marquee-item">E-commerce Marketing</div>
+    <div class="marquee-item">GA4 Analytics</div>
+    <div class="marquee-item">Campaign Strategy</div>
+    <div class="marquee-item">Script Writing</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-sidebar">
+    <div class="sidebar-label">Profile</div>
+    <div class="sidebar-num">01 / 04</div>
+  </div>
+  <div class="about-main">
+    <div class="section-kicker">About</div>
+    <h2 class="about-headline reveal">I make brands<br><em>findable &amp; desirable</em></h2>
+    <div class="about-body">
+      <div class="about-copy reveal">
+        <p>Currently working as a Digital Marketer at <strong>Blank Pages</strong>, I specialise in helping brands build a strong digital footprint — from ads that perform to websites that work.</p>
+        <p>With <strong>12+ brands</strong> across jewellery, fashion, fragrance, food, furniture, footwear and education, I bring hands-on experience across the full digital stack.</p>
+        <p>My background spans social media management, paid campaigns (Google &amp; Meta), SEO, and CMS development across <strong>WordPress, Shopify, and Wix</strong>.</p>
+      </div>
+      <div class="expertise-list reveal">
+        <div class="expertise-item">E-commerce Marketing</div>
+        <div class="expertise-item">Social Media Marketing</div>
+        <div class="expertise-item">Google &amp; Meta Ads</div>
+        <div class="expertise-item">SEO</div>
+        <div class="expertise-item">Shopify</div>
+        <div class="expertise-item">WordPress</div>
+        <div class="expertise-item">Campaign Analytics</div>
+        <div class="expertise-item">Script Writing</div>
+        <div class="expertise-item">Graphics</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div class="section-kicker">Services</div>
+    <h2 class="services-headline reveal">What I do</h2>
+    <span class="services-count reveal">06 capabilities</span>
+  </div>
+  <div class="services-grid">
+
+    <div class="service-item reveal">
+      <div class="service-num">01</div>
+      <div class="service-name">Social Media Management</div>
+      <p class="service-desc">End-to-end Instagram &amp; Facebook management — content calendars, graphics, reels, and community engagement.</p>
+      <div class="service-tags">
+        <span class="stag">Static Posts</span>
+        <span class="stag">Reels</span>
+        <span class="stag">Scheduling</span>
+        <span class="stag">Community</span>
+      </div>
+    </div>
+
+    <div class="service-item reveal">
+      <div class="service-num">02</div>
+      <div class="service-name">Web Development</div>
+      <p class="service-desc">Build and manage e-commerce and brand websites — product pages, landing pages, and ongoing updates across Shopify, WordPress, and Wix.</p>
+      <div class="service-tags">
+        <span class="stag">Shopify</span>
+        <span class="stag">WordPress</span>
+        <span class="stag">Wix</span>
+      </div>
+    </div>
+
+    <div class="service-item reveal">
+      <div class="service-num">03</div>
+      <div class="service-name">Paid Advertising</div>
+      <p class="service-desc">Google &amp; Meta ad campaigns — from strategy and creative briefing to execution and optimisation for maximum ROI.</p>
+      <div class="service-tags">
+        <span class="stag">Meta Ads</span>
+        <span class="stag">Google Ads</span>
+        <span class="stag">Retargeting</span>
+      </div>
+    </div>
+
+    <div class="service-item reveal">
+      <div class="service-num">04</div>
+      <div class="service-name">SEO &amp; Content</div>
+      <p class="service-desc">Keyword research, on-page &amp; off-page SEO, and blog writing to drive qualified organic traffic that compounds over time.</p>
+      <div class="service-tags">
+        <span class="stag">On-Page SEO</span>
+        <span class="stag">Off-Page SEO</span>
+        <span class="stag">Blog Writing</span>
+      </div>
+    </div>
+
+    <div class="service-item reveal">
+      <div class="service-num">05</div>
+      <div class="service-name">Analytics &amp; Reporting</div>
+      <p class="service-desc">Performance tracking using GA4 and Meta dashboards — turning raw data into clear, actionable insights for brand growth.</p>
+      <div class="service-tags">
+        <span class="stag">GA4</span>
+        <span class="stag">Meta Insights</span>
+        <span class="stag">Reporting</span>
+      </div>
+    </div>
+
+    <div class="service-item reveal">
+      <div class="service-num">06</div>
+      <div class="service-name">E-commerce Marketing</div>
+      <p class="service-desc">Full-funnel strategy — web, social, ads, retargeting, Amazon &amp; Flipkart ads, and product listing management in one package.</p>
+      <div class="service-tags">
+        <span class="stag">Full Funnel</span>
+        <span class="stag">Amazon / Flipkart</span>
+        <span class="stag">Listings</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="work-header">
+    <div class="section-kicker">Portfolio</div>
+    <h2 class="work-headline reveal">Selected Work</h2>
+    <p class="work-subline reveal">12+ brands across jewellery, fashion, fragrance, food, furniture, footwear &amp; education</p>
+  </div>
+  <div class="work-grid">
+
+    <!-- Rugcult — featured span -->
+    <div class="work-item span2 reveal">
+      <div class="work-visual c1" style="font-size:3rem;">Rugcult</div>
+      <div class="work-meta">
+        <div class="work-cat">Rugs · E-commerce</div>
+        <h3 class="work-title">Rugcult</h3>
+        <p class="work-desc">Managed the full digital stack — Shopify website, Meta and Google ad campaigns, Instagram content and community management.</p>
+        <div class="work-scope">
+          <span class="scope-tag">Shopify</span>
+          <span class="scope-tag">Meta Ads</span>
+          <span class="scope-tag">Google Ads</span>
+          <span class="scope-tag">Social Media</span>
+        </div>
+        <div class="work-links">
+          <a href="https://rugcult.com/" target="_blank" class="wlink">rugcult.com ↗</a>
+          <a href="https://www.instagram.com/rugcult.co/" target="_blank" class="wlink">@rugcult.co ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item reveal">
+      <div class="work-visual c2">MF</div>
+      <div class="work-meta">
+        <div class="work-cat">Perfume · Website + Social + Ads</div>
+        <h3 class="work-title">Majesty Fusion</h3>
+        <p class="work-desc">Website development, social media management, script writing for reels, and ad campaigns for a perfume brand.</p>
+        <div class="work-scope">
+          <span class="scope-tag">WordPress</span>
+          <span class="scope-tag">Social Media</span>
+          <span class="scope-tag">Script Writing</span>
+          <span class="scope-tag">Ads</span>
+        </div>
+        <div class="work-links">
+          <a href="https://majestyfusion.com/" target="_blank" class="wlink">majestyfusion.com ↗</a>
+          <a href="https://www.instagram.com/majestyfusion_official/" target="_blank" class="wlink">@majestyfusion_official ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item reveal">
+      <div class="work-visual c3" style="font-size:2rem;">Apidear</div>
+      <div class="work-meta">
+        <div class="work-cat">Honey · Web + Social + SEO + Ads</div>
+        <h3 class="work-title">Apidear Honey</h3>
+        <p class="work-desc">Website, organic social content, SEO blog writing, and ad campaigns for a premium honey brand.</p>
+        <div class="work-scope">
+          <span class="scope-tag">Website</span>
+          <span class="scope-tag">SEO</span>
+          <span class="scope-tag">Blogs</span>
+          <span class="scope-tag">Ads</span>
+        </div>
+        <div class="work-links">
+          <a href="https://www.instagram.com/apidear.com_/" target="_blank" class="wlink">@apidear.com_ ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item reveal">
+      <div class="work-visual c4" style="font-size:1.4rem;text-align:center;line-height:1.3">Indra<br>Sugandh</div>
+      <div class="work-meta">
+        <div class="work-cat">Fragrance · Website + Social + Ads</div>
+        <h3 class="work-title">Indra Sugandh Bhandar</h3>
+        <p class="work-desc">Website development, social media management, and ad campaigns for a traditional Indian fragrance brand.</p>
+        <div class="work-scope">
+          <span class="scope-tag">Website</span>
+          <span class="scope-tag">Social Media</span>
+          <span class="scope-tag">Ads</span>
+        </div>
+        <div class="work-links">
+          <a href="https://indrasugandh.com/" target="_blank" class="wlink">indrasugandh.com ↗</a>
+          <a href="https://www.instagram.com/indrasugandh_official/" target="_blank" class="wlink">@indrasugandh_official ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item reveal">
+      <div class="work-visual c5" style="font-size:1.4rem;text-align:center;line-height:1.3">Tokyo<br>Sole</div>
+      <div class="work-meta">
+        <div class="work-cat">Shoes · Website + Social + Ads</div>
+        <h3 class="work-title">Tokyo Sole</h3>
+        <p class="work-desc">Website development, Instagram content strategy, and performance ad campaigns for a contemporary footwear brand.</p>
+        <div class="work-scope">
+          <span class="scope-tag">Website</span>
+          <span class="scope-tag">Social Media</span>
+          <span class="scope-tag">Ads</span>
+        </div>
+        <div class="work-links">
+          <a href="https://tokyosole.com/" target="_blank" class="wlink">tokyosole.com ↗</a>
+          <a href="https://www.instagram.com/tokyosole.official/" target="_blank" class="wlink">@tokyosole.official ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item reveal">
+      <div class="work-visual c6" style="font-size:1.4rem;text-align:center;line-height:1.3">Furnishing<br>Touch</div>
+      <div class="work-meta">
+        <div class="work-cat">Furnishing · B2B &amp; B2C</div>
+        <h3 class="work-title">Furnishing Touch</h3>
+        <p class="work-desc">Social media management, pamphlet design, and Google Ads for a B2B &amp; B2C furnishing brand.</p>
+        <div class="work-scope">
+          <span class="scope-tag">Social Media</span>
+          <span class="scope-tag">Design</span>
+          <span class="scope-tag">Google Ads</span>
+        </div>
+        <div class="work-links">
+          <a href="https://www.instagram.com/furnishing.touch/" target="_blank" class="wlink">@furnishing.touch ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item reveal">
+      <div class="work-visual c7">Halxi</div>
+      <div class="work-meta">
+        <div class="work-cat">Website Development</div>
+        <h3 class="work-title">Halxi</h3>
+        <p class="work-desc">End-to-end website development — building a clean, functional web presence for the brand's digital launch.</p>
+        <div class="work-scope">
+          <span class="scope-tag">Website</span>
+        </div>
+        <div class="work-links">
+          <a href="https://halxi.com/" target="_blank" class="wlink">halxi.com ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item reveal">
+      <div class="work-visual c8" style="font-size:1.4rem;text-align:center;line-height:1.3">Merak<br>Home</div>
+      <div class="work-meta">
+        <div class="work-cat">Bedsheets · Social Media + Ads</div>
+        <h3 class="work-title">Merak Home Furnishing</h3>
+        <p class="work-desc">Social media management and ad campaigns for a premium bedsheet brand targeting quality-conscious home buyers.</p>
+        <div class="work-scope">
+          <span class="scope-tag">Social Media</span>
+          <span class="scope-tag">Ads</span>
+        </div>
+        <div class="work-links">
+          <a href="https://www.instagram.com/merak_home_furnishing/" target="_blank" class="wlink">@merak_home_furnishing ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item reveal" style="border-right:none">
+      <div class="work-visual c9">Koed</div>
+      <div class="work-meta">
+        <div class="work-cat">Education · Ads + Script Writing</div>
+        <h3 class="work-title">Koed — University / PhD Education</h3>
+        <p class="work-desc">Ad campaigns and script writing for an education platform targeting university and PhD aspirants.</p>
+        <div class="work-scope">
+          <span class="scope-tag">Ads</span>
+          <span class="scope-tag">Script Writing</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools" id="tools">
+  <div class="tools-header">
+    <div>
+      <div class="section-kicker">Tech Stack</div>
+      <h2 class="tools-headline reveal">Tools &amp; Software</h2>
+    </div>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-item reveal"><div class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=shopify.com&sz=64" alt="Shopify"/></div><div class="tool-name">Shopify</div><div class="tool-cat">E-commerce</div></div>
+    <div class="tool-item reveal"><div class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=ads.google.com&sz=64" alt="Google Ads"/></div><div class="tool-name">Google Ads</div><div class="tool-cat">Paid Search</div></div>
+    <div class="tool-item reveal"><div class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=business.facebook.com&sz=64" alt="Meta"/></div><div class="tool-name">Meta Business</div><div class="tool-cat">Paid Social</div></div>
+    <div class="tool-item reveal"><div class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=analytics.google.com&sz=64" alt="GA4"/></div><div class="tool-name">Google Analytics 4</div><div class="tool-cat">Analytics</div></div>
+    <div class="tool-item reveal"><div class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=wordpress.org&sz=64" alt="WordPress"/></div><div class="tool-name">WordPress</div><div class="tool-cat">CMS</div></div>
+    <div class="tool-item reveal"><div class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=wix.com&sz=64" alt="Wix"/></div><div class="tool-name">Wix</div><div class="tool-cat">Website Builder</div></div>
+    <div class="tool-item reveal"><div class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=canva.com&sz=64" alt="Canva"/></div><div class="tool-name">Canva</div><div class="tool-cat">Design</div></div>
+    <div class="tool-item reveal"><div class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=adobe.com&sz=64" alt="Adobe"/></div><div class="tool-name">Adobe Suite</div><div class="tool-cat">Design</div></div>
+    <div class="tool-item reveal"><div class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=search.google.com&sz=64" alt="Search Console"/></div><div class="tool-name">Search Console</div><div class="tool-cat">SEO</div></div>
+    <div class="tool-item reveal"><div class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=semrush.com&sz=64" alt="SEMrush"/></div><div class="tool-name">SEMrush</div><div class="tool-cat">SEO &amp; Keywords</div></div>
+    <div class="tool-item reveal"><div class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=instagram.com&sz=64" alt="Instagram"/></div><div class="tool-name">Instagram</div><div class="tool-cat">Social Media</div></div>
+    <div class="tool-item reveal"><div class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=chat.openai.com&sz=64" alt="AI Tools"/></div><div class="tool-name">AI Content Tools</div><div class="tool-cat">Productivity</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-left">
+    <div>
+      <div class="section-kicker" style="color:var(--highlight)">Contact</div>
+      <h2 class="contact-headline">Let's work<br><em>together</em></h2>
+      <p class="contact-sub">Open for freelance projects and contract-based work. I work with e-commerce, B2C and B2B brands across categories.</p>
+    </div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:.9rem;color:rgba(247,246,242,.3);letter-spacing:.15em;text-transform:uppercase;">Noida, India · Available for Remote</div>
+  </div>
+  <div class="contact-right">
+    <a href="mailto:kumari.ankita39316@gmail.com" class="contact-link-item">
+      <div>
+        <div class="cli-label">Email</div>
+        <div class="cli-value">kumari.ankita39316@gmail.com</div>
+      </div>
+      <span class="cli-arrow">→</span>
+    </a>
+    <a href="https://wa.me/918920528928" target="_blank" class="contact-link-item">
+      <div>
+        <div class="cli-label">WhatsApp</div>
+        <div class="cli-value">+91 89205 28928</div>
+      </div>
+      <span class="cli-arrow">→</span>
+    </a>
+    <a href="https://www.linkedin.com/in/ankita-kumari-441668280" target="_blank" class="contact-link-item">
+      <div>
+        <div class="cli-label">LinkedIn</div>
+        <div class="cli-value">Ankita Kumari</div>
+      </div>
+      <span class="cli-arrow">→</span>
+    </a>
+    <a href="https://www.instagram.com/" target="_blank" class="contact-link-item">
+      <div>
+        <div class="cli-label">Instagram</div>
+        <div class="cli-value">@ankitakumari</div>
+      </div>
+      <span class="cli-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Ankita Kumari</span>
+  <span>Digital Marketer</span>
+  <span>Noida, India</span>
+</footer>
+
+<script>
+// ── CURSOR ──
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=mx+'px';cursor.style.top=my+'px';
+});
+function animRing(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a,button,.expertise-item,.service-item,.tool-item,.work-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
+});
+
+// ── MOBILE MENU ──
+function toggleMobileMenu(){
+  const m=document.getElementById('mobileMenu'),h=document.getElementById('hamburger');
+  const o=m.classList.contains('open');
+  if(o){closeMobileMenu()}else{m.classList.add('open');h.classList.add('open');document.body.style.overflow='hidden'}
+}
+function closeMobileMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobileMenu()});
+
+// ── SCROLL REVEAL ──
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
+},{threshold:0.08});
+document.querySelectorAll('.reveal,.reveal-left').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
