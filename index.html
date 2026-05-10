@@ -14,12 +14,10 @@
   --forest:#1E3528;
   --terra:#B5603A;
   --gold:#C9965A;
-  --sage:#4A6741;
   --cream:#FAF6EE;
   --muted:#7A7060;
   --rule:rgba(26,20,16,.1);
   --card:#FFFDF8;
-  --accent:#1E3528;
   --accent-light:#E8EDE5;
 }
 html{scroll-behavior:smooth}
@@ -33,32 +31,17 @@ nav{
   background:rgba(245,240,232,.97);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--rule);
 }
-.nav-logo{
-  font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;
-  color:var(--ink);text-decoration:none;letter-spacing:.04em;
-}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:.04em}
 .nav-links{display:flex;gap:2.25rem;align-items:center}
-.nav-links a{
-  font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-  text-decoration:none;color:var(--muted);transition:color .22s;
-}
-.nav-links a:hover{color:var(--forest)}
-.nav-cta{
-  font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  padding:.55rem 1.4rem;background:var(--forest);color:#fff;border-radius:2px;
-  text-decoration:none;transition:background .22s,transform .18s;
-}
-.nav-cta:hover{background:var(--terra);transform:translateY(-1px)}
-.hamburger{
-  display:none;flex-direction:column;gap:5px;
-  background:none;border:none;cursor:pointer;padding:4px;
-}
+.nav-links a{font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--muted)}
+.nav-cta{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.55rem 1.4rem;background:var(--forest);color:#fff !important;border-radius:2px;text-decoration:none}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;touch-action:manipulation}
 .hamburger span{display:block;width:22px;height:1.5px;background:var(--ink);transition:transform .3s,opacity .3s;border-radius:2px}
 .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
-/* ── MOBILE OVERLAY / MENU ── */
+/* ── MOBILE MENU ── */
 .mob-overlay{display:none;position:fixed;inset:0;z-index:380;background:rgba(0,0,0,.5);opacity:0;transition:opacity .35s}
 .mob-overlay.open{opacity:1}
 .mobile-menu{
@@ -70,62 +53,32 @@ nav{
 }
 .mobile-menu.open{transform:translateX(0)}
 .mobile-menu a{
-  font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-  text-decoration:none;color:rgba(255,255,255,.6);
-  padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.08);transition:color .2s,padding-left .2s;
+  font-size:.8rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;color:rgba(255,255,255,.8);
+  padding:1.1rem 0;border-bottom:1px solid rgba(255,255,255,.1);
+  display:block;touch-action:manipulation;
+  -webkit-tap-highlight-color:rgba(255,255,255,.1);
 }
-.mobile-menu a:first-child{border-top:1px solid rgba(255,255,255,.08)}
-.mobile-menu a:hover{color:#fff;padding-left:.5rem}
+.mobile-menu a:first-child{border-top:1px solid rgba(255,255,255,.1)}
 .mobile-menu .m-cta{
   margin-top:1.5rem;color:#fff !important;font-weight:700;
-  background:var(--terra);border-radius:2px;padding:.85rem 1rem !important;
-  text-align:center;border:none !important;border-top:none !important;
-  transition:background .2s !important;
+  background:var(--terra);border-radius:2px;padding:1rem !important;
+  text-align:center;border:none !important;
 }
-.mobile-menu .m-cta:hover{background:#c96a42 !important;padding-left:1rem !important}
 
 /* ── HERO ── */
-.hero{
-  min-height:100vh;display:grid;grid-template-columns:52% 48%;padding-top:3.8rem;
-}
-.hero-left{
-  background:var(--forest);color:#fff;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:5rem 4rem 4.5rem;position:relative;overflow:hidden;
-}
-.hero-bg-text{
-  position:absolute;bottom:-3rem;right:-2rem;
-  font-family:'Cormorant Garamond',serif;font-size:clamp(10rem,18vw,17rem);
-  opacity:.05;line-height:1;pointer-events:none;color:#fff;user-select:none;font-weight:300;
-}
-.hero-eyebrow{
-  font-size:.62rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:2.25rem;display:flex;align-items:center;gap:.9rem;
-}
+.hero{min-height:100vh;display:grid;grid-template-columns:52% 48%;padding-top:3.8rem}
+.hero-left{background:var(--forest);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:5rem 4rem 4.5rem;position:relative;overflow:hidden}
+.hero-bg-text{position:absolute;bottom:-3rem;right:-2rem;font-family:'Cormorant Garamond',serif;font-size:clamp(10rem,18vw,17rem);opacity:.05;line-height:1;pointer-events:none;color:#fff;user-select:none;font-weight:300}
+.hero-eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:2.25rem;display:flex;align-items:center;gap:.9rem}
 .hero-eyebrow::before{content:'';width:2.5rem;height:1px;background:var(--gold)}
-.hero-name{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(4rem,8vw,7rem);line-height:.98;font-weight:300;
-}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(4rem,8vw,7rem);line-height:.98;font-weight:300}
 .hero-name em{font-style:italic;color:var(--gold)}
-.hero-tagline{
-  font-size:.95rem;font-weight:400;color:rgba(255,255,255,.5);
-  line-height:1.8;margin-top:2rem;max-width:380px;
-}
-.hero-scroll{
-  margin-top:3.5rem;display:flex;align-items:center;gap:1rem;
-  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.25);
-}
+.hero-tagline{font-size:.95rem;font-weight:400;color:rgba(255,255,255,.5);line-height:1.8;margin-top:2rem;max-width:380px}
+.hero-scroll{margin-top:3.5rem;display:flex;align-items:center;gap:1rem;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.25)}
 .hero-scroll::before{content:'';width:2.5rem;height:1px;background:rgba(255,255,255,.15)}
-
-.hero-right{
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:5rem 4rem 4.5rem;background:var(--cream);
-}
-.hero-intro{
-  font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-style:italic;font-weight:300;
-  line-height:1.85;color:var(--muted);margin-bottom:3.5rem;
-}
+.hero-right{display:flex;flex-direction:column;justify-content:flex-end;padding:5rem 4rem 4.5rem;background:var(--cream)}
+.hero-intro{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-style:italic;font-weight:300;line-height:1.85;color:var(--muted);margin-bottom:3.5rem}
 .hero-stats{display:flex;flex-direction:column}
 .hstat{display:flex;align-items:baseline;justify-content:space-between;padding:1.25rem 0;border-top:1px solid var(--rule)}
 .hstat:last-child{border-bottom:1px solid var(--rule)}
@@ -135,158 +88,83 @@ nav{
 /* ── TICKER ── */
 .ticker{background:var(--terra);overflow:hidden;padding:.75rem 0}
 .ticker-track{display:flex;white-space:nowrap;animation:tick 32s linear infinite}
-.tick-item{
-  font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
-  color:rgba(255,255,255,.9);padding:0 2.5rem;flex-shrink:0;
-  display:inline-flex;align-items:center;gap:2.5rem;
-}
+.tick-item{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.9);padding:0 2.5rem;flex-shrink:0;display:inline-flex;align-items:center;gap:2.5rem}
 .tick-item::after{content:'◆';font-size:.35rem;color:rgba(255,255,255,.4)}
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ── SHARED SECTION WRAPPER ── */
+/* ── SHARED ── */
 .sw{padding:6rem 4rem}
-.kicker{
-  font-size:.6rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;
-  color:var(--terra);margin-bottom:1rem;display:flex;align-items:center;gap:.9rem;
-}
+.kicker{font-size:.6rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--terra);margin-bottom:1rem;display:flex;align-items:center;gap:.9rem}
 .kicker::before{content:'';width:2rem;height:1px;background:var(--terra)}
-.hl{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.4rem,5vw,4rem);line-height:1.05;margin-bottom:3.5rem;font-weight:300;
-}
+.hl{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,4rem);line-height:1.05;margin-bottom:3.5rem;font-weight:300}
 .hl em{font-style:italic;color:var(--terra)}
 
 /* ── ABOUT ── */
 .about{background:var(--page);border-bottom:1px solid var(--rule)}
 .about-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:5rem;align-items:start}
-.about-copy p{
-  font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;font-weight:300;
-  line-height:1.9;color:var(--muted);margin-bottom:1.35rem;
-}
+.about-copy p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;font-weight:300;line-height:1.9;color:var(--muted);margin-bottom:1.35rem}
 .about-copy p strong{color:var(--ink);font-style:normal;font-weight:600}
 .exp-title{font-size:.6rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin:2.75rem 0 1rem}
 .exp-list{display:flex;flex-direction:column}
-.exp-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:.9rem 0;border-bottom:1px solid var(--rule);
-  cursor:default;position:relative;overflow:hidden;transition:padding-left .22s;
-}
+.exp-row{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0;border-bottom:1px solid var(--rule)}
 .exp-row:first-child{border-top:1px solid var(--rule)}
-.exp-row::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:var(--terra);transform:scaleY(0);transform-origin:bottom;transition:transform .25s;
-}
-.exp-row:hover::before{transform:scaleY(1)}
-.exp-row:hover{padding-left:.8rem}
-.exp-row:hover .exp-n{color:var(--terra)}
-.exp-n{font-size:.82rem;font-weight:500;transition:color .22s}
-.exp-arr{font-size:.85rem;color:var(--terra);opacity:0;transition:opacity .2s,transform .2s;transform:translateX(-4px)}
-.exp-row:hover .exp-arr{opacity:1;transform:translateX(0)}
-@media(hover:none){
-  .exp-arr{opacity:1 !important;transform:none !important}
-  .exp-row{padding-left:0 !important}
-  .exp-row::before{display:none}
-}
-
-/* Stats grid */
+.exp-n{font-size:.82rem;font-weight:500}
+.exp-arr{font-size:.85rem;color:var(--terra)}
 .abox-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule)}
-.abox{background:var(--card);padding:2rem 1.75rem;transition:background .22s}
-.abox:hover{background:var(--accent-light)}
+.abox{background:var(--card);padding:2rem 1.75rem}
 .abox-num{font-family:'Cormorant Garamond',serif;font-size:2.6rem;color:var(--forest);line-height:1;margin-bottom:.4rem;font-weight:300}
 .abox-lbl{font-size:.68rem;font-weight:500;letter-spacing:.04em;color:var(--muted);line-height:1.55}
 .abox.feat{background:var(--forest);grid-column:span 2}
 .abox.feat .abox-num{color:var(--gold)}
 .abox.feat .abox-lbl{color:rgba(255,255,255,.5)}
-.abox.feat:hover{background:var(--forest)}
 .abox.wide{grid-column:span 2}
 
 /* ── SERVICES ── */
 .services{background:var(--cream);border-bottom:1px solid var(--rule)}
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
-.svc{
-  background:var(--card);padding:2.5rem 2.25rem;position:relative;overflow:hidden;
-  transition:background .25s,transform .25s;
-}
-.svc::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
-  background:var(--terra);transform:scaleX(0);transform-origin:left;transition:transform .3s;
-}
-.svc:hover{background:var(--accent-light);transform:translateY(-3px)}
-.svc:hover::after{transform:scaleX(1)}
+.svc{background:var(--card);padding:2.5rem 2.25rem}
 .svc-num{font-size:.62rem;font-weight:700;letter-spacing:.22em;color:var(--muted);margin-bottom:1.5rem}
 .svc-name{font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.85rem;color:var(--forest)}
 .svc-desc{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;font-weight:300;line-height:1.8;color:var(--muted)}
 .svc-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1.5rem}
-.stag{
-  font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  padding:.3rem .7rem;border:1px solid var(--rule);color:var(--muted);border-radius:2px;
-  transition:border-color .2s,color .2s,background .2s;
-}
-.svc:hover .stag{border-color:var(--terra);color:var(--terra);background:rgba(181,96,58,.06)}
+.stag{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .7rem;border:1px solid var(--rule);color:var(--muted);border-radius:2px}
 
 /* ── WORK ── */
 .work{background:var(--page);border-bottom:1px solid var(--rule)}
 .work .sw{padding-bottom:0}
-
-.wgrid{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:1px;
-  background:var(--rule);
-  border:1px solid var(--rule);
-}
-.wcard{
-  background:var(--card);overflow:hidden;
-  transition:transform .3s,box-shadow .3s;
-  position:relative;
-  display:flex;
-  flex-direction:column;
-}
-.wcard:hover{transform:translateY(-4px);box-shadow:0 20px 56px rgba(26,20,16,.1);z-index:1}
-
-.wvis{
-  height:180px;display:flex;align-items:center;justify-content:center;
-  font-family:'Cormorant Garamond',serif;font-size:2rem;font-style:italic;font-weight:300;
-  overflow:hidden;transition:filter .3s;flex-shrink:0;
-}
-.wcard:hover .wvis{filter:brightness(1.05)}
-
-/* Palette — warm editorial tones */
-.w1{background:#C4D4C0;color:#1E2D1E}
-.w2{background:#D4C8B8;color:#2D2518}
-.w3{background:#C8B8A8;color:#2D1E10}
-.w4{background:#C8C0D8;color:#1E1828}
-.w5{background:#B8D0CC;color:#102820}
-.w6{background:#D8C8A8;color:#281E10}
-.w7{background:#B8D4C0;color:#102018}
-.w8{background:#D4B8B8;color:#281010}
-.w9{background:#C8C8C4;color:#181818}
-
-.wmeta{padding:2rem 2.25rem}
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.wcard{background:var(--card);overflow:hidden;display:flex;flex-direction:column}
+.wvis{height:180px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:2rem;font-style:italic;font-weight:300;flex-shrink:0}
+.w1{background:#C4D4C0;color:#1E2D1E}.w2{background:#D4C8B8;color:#2D2518}.w3{background:#C8B8A8;color:#2D1E10}
+.w4{background:#C8C0D8;color:#1E1828}.w5{background:#B8D0CC;color:#102820}.w6{background:#D8C8A8;color:#281E10}
+.w7{background:#B8D4C0;color:#102018}.w8{background:#D4B8B8;color:#281010}.w9{background:#C8C8C4;color:#181818}
+.wmeta{padding:2rem 2.25rem;display:flex;flex-direction:column;flex:1}
 .wcat{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);margin-bottom:.65rem}
 .wtitle{font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:.65rem;font-weight:400}
 .wdesc{font-size:.82rem;line-height:1.75;color:var(--muted);margin-bottom:1.1rem}
 .wscope{display:flex;flex-wrap:wrap;gap:.4rem}
-.wsco{
-  font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  padding:.28rem .7rem;background:var(--forest);color:#fff;border-radius:2px;
-}
-.wlinks{display:flex;gap:1.25rem;margin-top:1rem;flex-wrap:wrap}
+.wsco{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .7rem;background:var(--forest);color:#fff;border-radius:2px}
+
+/* WORK LINKS — solid button, big tap target, no opacity tricks */
+.wlinks{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
 .wlnk{
-  font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  text-decoration:none;color:var(--muted);border-bottom:1px solid var(--rule);
-  padding:.4rem 0;
-  -webkit-tap-highlight-color:rgba(181,96,58,.15);
-  display:inline-block;
-  transition:color .2s,border-color .2s;
+  font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  text-decoration:none;
+  color:#fff;
+  background:var(--terra);
+  border-radius:3px;
+  padding:.6rem 1.1rem;
+  display:inline-flex;
+  align-items:center;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
 }
-.wlnk:hover{color:var(--terra);border-color:var(--terra)}
 
 /* ── TOOLS ── */
 .tools{background:var(--cream);border-bottom:1px solid var(--rule)}
 .tgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
-.tc{background:var(--card);padding:1.75rem 1rem;text-align:center;transition:background .22s,transform .22s;cursor:default}
-.tc:hover{background:var(--accent-light);transform:translateY(-3px)}
+.tc{background:var(--card);padding:1.75rem 1rem;text-align:center}
 .tc-icon{width:34px;height:34px;margin:0 auto .65rem;display:flex;align-items:center;justify-content:center}
 .tc-icon img{width:34px;height:34px;object-fit:contain;border-radius:6px}
 .tc-name{font-size:.68rem;font-weight:600;margin-bottom:.15rem;color:var(--ink)}
@@ -300,76 +178,69 @@ nav{
 .con-sub{font-size:.9rem;line-height:1.8;color:rgba(255,255,255,.45);margin-top:1.75rem;font-weight:400}
 .con-avail{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:3rem}
 .con-right{padding:5.5rem 4rem;display:flex;flex-direction:column;justify-content:center;background:var(--cream)}
+
+/* CONTACT LINKS — the most important fix */
+/* Each link is a full-width solid tap target */
 .clink{
   display:flex;align-items:center;justify-content:space-between;
-  padding:1.5rem 0;border-bottom:1px solid var(--rule);
-  text-decoration:none;color:var(--ink);
-  transition:color .22s,padding-left .22s;
-  -webkit-tap-highlight-color:rgba(181,96,58,.12);
-  position:relative;
+  padding:1.5rem 1.25rem;
+  margin-bottom:.75rem;
+  border-radius:4px;
+  background:var(--card);
+  border:1px solid var(--rule);
+  text-decoration:none;
+  color:var(--ink);
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:rgba(181,96,58,.1);
+  cursor:pointer;
+  /* Absolutely no opacity or transform that could ghost over taps */
 }
-.clink:first-child{border-top:1px solid var(--rule)}
-.clink:hover{color:var(--terra);padding-left:.5rem}
-.cl-left{display:flex;flex-direction:column;gap:.3rem;flex:1;min-width:0}
-.cl-lbl{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);transition:color .22s}
-.clink:hover .cl-lbl{color:var(--terra)}
-.cl-val{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;font-weight:400;word-break:break-all}
-.cl-arr{color:var(--terra);font-size:1.1rem;flex-shrink:0;margin-left:1rem;
-  opacity:0;transition:opacity .22s,transform .22s;transform:translateX(-6px)}
-.clink:hover .cl-arr{opacity:1;transform:translateX(0)}
-@media(hover:none){
-  .clink{padding-left:0 !important}
-  .cl-arr{opacity:1 !important;transform:none !important}
+.clink:active{background:var(--accent-light)}
+.cl-left{display:flex;flex-direction:column;gap:.35rem;flex:1;min-width:0;padding-right:.75rem}
+.cl-lbl{font-size:.58rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--terra)}
+.cl-val{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;font-weight:400;word-break:break-word;overflow-wrap:anywhere;color:var(--ink)}
+.cl-arr{
+  width:2.2rem;height:2.2rem;border-radius:50%;
+  background:var(--terra);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;flex-shrink:0;
 }
 
 /* ── FOOTER ── */
-footer{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.35rem 4rem;border-top:1px solid var(--rule);
-  font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
-  background:var(--page);
-}
+footer{display:flex;align-items:center;justify-content:space-between;padding:1.35rem 4rem;border-top:1px solid var(--rule);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);background:var(--page)}
 
-/* ── REVEAL ── */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.reveal.in{opacity:1;transform:translateY(0)}
-.reveal-r{opacity:0;transform:translateX(24px);transition:opacity .7s ease,transform .7s ease}
-.reveal-r.in{opacity:1;transform:translateX(0)}
-.reveal:nth-child(2){transition-delay:.08s}.reveal:nth-child(3){transition-delay:.16s}
-.reveal:nth-child(4){transition-delay:.24s}.reveal:nth-child(5){transition-delay:.32s}
-.reveal:nth-child(6){transition-delay:.4s}
+/* ── REVEAL — desktop only ── */
+@media(hover:hover) and (pointer:fine){
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:translateY(0)}
+  .reveal-r{opacity:0;transform:translateX(24px);transition:opacity .7s ease,transform .7s ease}
+  .reveal-r.in{opacity:1;transform:translateX(0)}
+  .reveal:nth-child(2){transition-delay:.08s}
+  .reveal:nth-child(3){transition-delay:.16s}
+  .reveal:nth-child(4){transition-delay:.24s}
+  .reveal:nth-child(5){transition-delay:.32s}
+  .reveal:nth-child(6){transition-delay:.4s}
+}
 
 /* ── RESPONSIVE ── */
-@media(max-width:1100px){
-  .tgrid{grid-template-columns:repeat(4,1fr)}
-}
+@media(max-width:1100px){.tgrid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:900px){
   nav{padding:1rem 1.25rem}
   .nav-links{display:none}
   .hamburger{display:flex}
   .mob-overlay{display:block}
   .mobile-menu{display:flex}
-
   .sw{padding:4rem 1.5rem}
   .hero{grid-template-columns:1fr;padding-top:3.5rem}
   .hero-left{padding:5rem 1.5rem 3rem}
   .hero-right{padding:2.5rem 1.5rem 3.5rem}
-  .hero-intro{font-size:1.05rem;margin-bottom:2rem}
-
   .about-grid{grid-template-columns:1fr;gap:2.5rem}
   .svc-grid{grid-template-columns:1fr 1fr}
-
-  /* Work section — 2 col on tablet, 1 col on mobile */
   .wgrid{grid-template-columns:1fr 1fr}
-  .wcard.feat{flex-direction:column}
-  .wcard.feat .wvis{height:180px}
-
   .tgrid{grid-template-columns:repeat(3,1fr)}
-
   .contact-wrap{grid-template-columns:1fr}
   .con-left{padding:3.5rem 1.5rem}
   .con-right{padding:3rem 1.5rem}
-
   footer{flex-direction:column;gap:.5rem;padding:1.1rem 1.5rem;text-align:center}
 }
 @media(max-width:600px){
@@ -379,27 +250,11 @@ footer{
   .abox.feat,.abox.wide{grid-column:1}
   .wgrid{grid-template-columns:1fr}
 }
-/* ── GLOBAL MOBILE TOUCH FIX ── */
-@media(hover:none),(pointer:coarse){
-  a,button{
-    -webkit-tap-highlight-color:rgba(181,96,58,.15);
-    touch-action:manipulation;
-    cursor:pointer;
-  }
-  /* Ensure no invisible overlay blocks taps */
-  .wcard::before,.svc::before,.exp-row::before{pointer-events:none}
-  /* Make all links easily tappable */
-  .wlnk{padding:.5rem 0;margin:-.3rem 0}
-  .nav-links a,.mobile-menu a{padding:.6rem 0;display:block}
-}
 </style>
 </head>
 <body>
 
-<!-- MOBILE OVERLAY -->
 <div class="mob-overlay" id="mobOverlay" onclick="closeMob()"></div>
-
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobMenu">
   <a href="#about" onclick="closeMob()">About</a>
   <a href="#services" onclick="closeMob()">Services</a>
@@ -408,7 +263,6 @@ footer{
   <a href="#contact" onclick="closeMob()" class="m-cta">Contact</a>
 </div>
 
-<!-- NAV -->
 <nav>
   <a class="nav-logo" href="#home">Ankita Kumari</a>
   <div class="nav-links">
@@ -423,7 +277,6 @@ footer{
   </button>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-left">
     <div class="hero-bg-text">AK</div>
@@ -442,7 +295,6 @@ footer{
   </div>
 </section>
 
-<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-track">
     <span class="tick-item">Social Media Management</span><span class="tick-item">Meta &amp; Google Ads</span>
@@ -456,7 +308,6 @@ footer{
   </div>
 </div>
 
-<!-- ABOUT -->
 <section class="about" id="about">
   <div class="sw">
     <div class="kicker">About Me</div>
@@ -489,183 +340,36 @@ footer{
   </div>
 </section>
 
-<!-- SERVICES -->
 <section class="services" id="services">
   <div class="sw">
     <div class="kicker">What I Do</div>
     <h2 class="hl reveal">Services</h2>
     <div class="svc-grid">
-      <div class="svc reveal">
-        <div class="svc-num">01</div>
-        <div class="svc-name">Social Media Management</div>
-        <p class="svc-desc">End-to-end Instagram &amp; Facebook management — content calendars, graphics, reels, and community engagement.</p>
-        <div class="svc-tags"><span class="stag">Static Posts</span><span class="stag">Reels</span><span class="stag">Scheduling</span><span class="stag">Community</span></div>
-      </div>
-      <div class="svc reveal">
-        <div class="svc-num">02</div>
-        <div class="svc-name">Web Development</div>
-        <p class="svc-desc">Build and manage e-commerce and brand websites — product pages, landing pages, and ongoing updates.</p>
-        <div class="svc-tags"><span class="stag">Shopify</span><span class="stag">WordPress</span><span class="stag">Wix</span></div>
-      </div>
-      <div class="svc reveal">
-        <div class="svc-num">03</div>
-        <div class="svc-name">Paid Advertising</div>
-        <p class="svc-desc">Google &amp; Meta ad campaigns — from strategy and creative briefing to execution and optimisation.</p>
-        <div class="svc-tags"><span class="stag">Meta Ads</span><span class="stag">Google Ads</span><span class="stag">Retargeting</span></div>
-      </div>
-      <div class="svc reveal">
-        <div class="svc-num">04</div>
-        <div class="svc-name">SEO &amp; Content</div>
-        <p class="svc-desc">Keyword research, on-page &amp; off-page SEO, and blog writing to drive qualified organic traffic.</p>
-        <div class="svc-tags"><span class="stag">On-Page SEO</span><span class="stag">Off-Page SEO</span><span class="stag">Blog Writing</span></div>
-      </div>
-      <div class="svc reveal">
-        <div class="svc-num">05</div>
-        <div class="svc-name">Analytics &amp; Reporting</div>
-        <p class="svc-desc">Performance tracking using GA4 and Meta dashboards — turning data into clear, actionable insights.</p>
-        <div class="svc-tags"><span class="stag">GA4</span><span class="stag">Meta Insights</span><span class="stag">Reporting</span></div>
-      </div>
-      <div class="svc reveal">
-        <div class="svc-num">06</div>
-        <div class="svc-name">E-commerce Marketing</div>
-        <p class="svc-desc">Full-funnel strategy — web, social, ads, retargeting, Amazon &amp; Flipkart ads, and product listing management.</p>
-        <div class="svc-tags"><span class="stag">Full Funnel</span><span class="stag">Amazon/Flipkart</span><span class="stag">Listings</span></div>
-      </div>
+      <div class="svc reveal"><div class="svc-num">01</div><div class="svc-name">Social Media Management</div><p class="svc-desc">End-to-end Instagram &amp; Facebook management — content calendars, graphics, reels, and community engagement.</p><div class="svc-tags"><span class="stag">Static Posts</span><span class="stag">Reels</span><span class="stag">Scheduling</span><span class="stag">Community</span></div></div>
+      <div class="svc reveal"><div class="svc-num">02</div><div class="svc-name">Web Development</div><p class="svc-desc">Build and manage e-commerce and brand websites — product pages, landing pages, and ongoing updates.</p><div class="svc-tags"><span class="stag">Shopify</span><span class="stag">WordPress</span><span class="stag">Wix</span></div></div>
+      <div class="svc reveal"><div class="svc-num">03</div><div class="svc-name">Paid Advertising</div><p class="svc-desc">Google &amp; Meta ad campaigns — from strategy and creative briefing to execution and optimisation.</p><div class="svc-tags"><span class="stag">Meta Ads</span><span class="stag">Google Ads</span><span class="stag">Retargeting</span></div></div>
+      <div class="svc reveal"><div class="svc-num">04</div><div class="svc-name">SEO &amp; Content</div><p class="svc-desc">Keyword research, on-page &amp; off-page SEO, and blog writing to drive qualified organic traffic.</p><div class="svc-tags"><span class="stag">On-Page SEO</span><span class="stag">Off-Page SEO</span><span class="stag">Blog Writing</span></div></div>
+      <div class="svc reveal"><div class="svc-num">05</div><div class="svc-name">Analytics &amp; Reporting</div><p class="svc-desc">Performance tracking using GA4 and Meta dashboards — turning data into clear, actionable insights.</p><div class="svc-tags"><span class="stag">GA4</span><span class="stag">Meta Insights</span><span class="stag">Reporting</span></div></div>
+      <div class="svc reveal"><div class="svc-num">06</div><div class="svc-name">E-commerce Marketing</div><p class="svc-desc">Full-funnel strategy — web, social, ads, retargeting, Amazon &amp; Flipkart ads, and product listing management.</p><div class="svc-tags"><span class="stag">Full Funnel</span><span class="stag">Amazon/Flipkart</span><span class="stag">Listings</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- WORK -->
 <section class="work" id="work">
-  <div class="sw">
-    <div class="kicker">Portfolio</div>
-    <h2 class="hl reveal">Selected Work</h2>
-  </div>
+  <div class="sw"><div class="kicker">Portfolio</div><h2 class="hl reveal">Selected Work</h2></div>
   <div class="wgrid">
-
-    <!-- Rugcult -->
-    <div class="wcard reveal">
-      <div class="wvis w1">Rugcult</div>
-      <div class="wmeta">
-        <div class="wcat">Rugs · E-commerce</div>
-        <h3 class="wtitle">Rugcult</h3>
-        <p class="wdesc">Managed the full digital stack — Shopify website, Meta and Google ad campaigns, Instagram content and community management.</p>
-        <div class="wscope"><span class="wsco">Shopify</span><span class="wsco">Meta Ads</span><span class="wsco">Google Ads</span><span class="wsco">Social Media</span></div>
-        <div class="wlinks">
-          <a href="https://rugcult.com/" target="_blank" class="wlnk">rugcult.com ↗</a>
-          <a href="https://www.instagram.com/rugcult.co/" target="_blank" class="wlnk">@rugcult.co ↗</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Majesty Fusion -->
-    <div class="wcard reveal">
-      <div class="wvis w2">MF</div>
-      <div class="wmeta">
-        <div class="wcat">Perfume · Website + Social + Ads</div>
-        <h3 class="wtitle">Majesty Fusion</h3>
-        <p class="wdesc">Website development, social media management, script writing for reels, and ad campaigns for a perfume brand.</p>
-        <div class="wscope"><span class="wsco">WordPress</span><span class="wsco">Social Media</span><span class="wsco">Script Writing</span><span class="wsco">Ads</span></div>
-        <div class="wlinks">
-          <a href="https://majestyfusion.com/" target="_blank" class="wlnk">majestyfusion.com ↗</a>
-          <a href="https://www.instagram.com/majestyfusion_official/" target="_blank" class="wlnk">@majestyfusion_official ↗</a>
-        </div>
-      </div>
-    </div>
-    <div class="wcard reveal">
-      <div class="wvis w3">Apidear</div>
-      <div class="wmeta">
-        <div class="wcat">Honey · Web + Social + SEO + Ads</div>
-        <h3 class="wtitle">Apidear Honey</h3>
-        <p class="wdesc">Website, organic social content, SEO blog writing, and ad campaigns for a premium honey brand.</p>
-        <div class="wscope"><span class="wsco">Website</span><span class="wsco">SEO</span><span class="wsco">Blogs</span><span class="wsco">Ads</span></div>
-        <div class="wlinks">
-          <a href="https://www.instagram.com/apidear.com_/" target="_blank" class="wlnk">@apidear.com_ ↗</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Indra Sugandh -->
-    <div class="wcard reveal">
-      <div class="wvis w4" style="font-size:1.4rem;text-align:center;line-height:1.4">Indra<br>Sugandh</div>
-      <div class="wmeta">
-        <div class="wcat">Fragrance · Website + Social + Ads</div>
-        <h3 class="wtitle">Indra Sugandh Bhandar</h3>
-        <p class="wdesc">Website development, social media management, and ad campaigns for a traditional Indian fragrance brand.</p>
-        <div class="wscope"><span class="wsco">Website</span><span class="wsco">Social Media</span><span class="wsco">Ads</span></div>
-        <div class="wlinks">
-          <a href="https://indrasugandh.com/" target="_blank" class="wlnk">indrasugandh.com ↗</a>
-          <a href="https://www.instagram.com/indrasugandh_official/" target="_blank" class="wlnk">@indrasugandh_official ↗</a>
-        </div>
-      </div>
-    </div>
-    <div class="wcard reveal">
-      <div class="wvis w5" style="font-size:1.4rem;text-align:center;line-height:1.4">Tokyo<br>Sole</div>
-      <div class="wmeta">
-        <div class="wcat">Shoes · Website + Social + Ads</div>
-        <h3 class="wtitle">Tokyo Sole</h3>
-        <p class="wdesc">Website development, Instagram content strategy, and performance ad campaigns for a contemporary footwear brand.</p>
-        <div class="wscope"><span class="wsco">Website</span><span class="wsco">Social Media</span><span class="wsco">Ads</span></div>
-        <div class="wlinks">
-          <a href="https://tokyosole.com/" target="_blank" class="wlnk">tokyosole.com ↗</a>
-          <a href="https://www.instagram.com/tokyosole.official/" target="_blank" class="wlnk">@tokyosole.official ↗</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Furnishing Touch -->
-    <div class="wcard reveal">
-      <div class="wvis w6" style="font-size:1.3rem;text-align:center;line-height:1.4">Furnishing<br>Touch</div>
-      <div class="wmeta">
-        <div class="wcat">Furnishing · B2B &amp; B2C</div>
-        <h3 class="wtitle">Furnishing Touch</h3>
-        <p class="wdesc">Social media management, pamphlet design, and Google Ads for a B2B &amp; B2C furnishing brand.</p>
-        <div class="wscope"><span class="wsco">Social Media</span><span class="wsco">Design</span><span class="wsco">Google Ads</span></div>
-        <div class="wlinks">
-          <a href="https://www.instagram.com/furnishing.touch/" target="_blank" class="wlnk">@furnishing.touch ↗</a>
-        </div>
-      </div>
-    </div>
-    <div class="wcard reveal">
-      <div class="wvis w7">Halxi</div>
-      <div class="wmeta">
-        <div class="wcat">Website Development</div>
-        <h3 class="wtitle">Halxi</h3>
-        <p class="wdesc">End-to-end website development — building a clean, functional web presence for the brand's digital launch.</p>
-        <div class="wscope"><span class="wsco">Website</span></div>
-        <div class="wlinks">
-          <a href="https://halxi.com/" target="_blank" class="wlnk">halxi.com ↗</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Merak Home -->
-    <div class="wcard reveal">
-      <div class="wvis w8" style="font-size:1.3rem;text-align:center;line-height:1.4">Merak<br>Home</div>
-      <div class="wmeta">
-        <div class="wcat">Bedsheets · Social Media + Ads</div>
-        <h3 class="wtitle">Merak Home Furnishing</h3>
-        <p class="wdesc">Social media management and ad campaigns for a premium bedsheet brand targeting quality-conscious home buyers.</p>
-        <div class="wscope"><span class="wsco">Social Media</span><span class="wsco">Ads</span></div>
-        <div class="wlinks">
-          <a href="https://www.instagram.com/merak_home_furnishing/" target="_blank" class="wlnk">@merak_home_furnishing ↗</a>
-        </div>
-      </div>
-    </div>
-    <div class="wcard reveal">
-      <div class="wvis w9">Koed</div>
-      <div class="wmeta">
-        <div class="wcat">Education · Ads + Script Writing</div>
-        <h3 class="wtitle">Koed — University / PhD Education</h3>
-        <p class="wdesc">Ad campaigns and script writing for an education platform targeting university and PhD aspirants.</p>
-        <div class="wscope"><span class="wsco">Ads</span><span class="wsco">Script Writing</span></div>
-      </div>
-    </div>
-
+    <div class="wcard reveal"><div class="wvis w1">Rugcult</div><div class="wmeta"><div class="wcat">Rugs · E-commerce</div><h3 class="wtitle">Rugcult</h3><p class="wdesc">Managed the full digital stack — Shopify website, Meta and Google ad campaigns, Instagram content and community management.</p><div class="wscope"><span class="wsco">Shopify</span><span class="wsco">Meta Ads</span><span class="wsco">Google Ads</span><span class="wsco">Social Media</span></div><div class="wlinks"><a href="https://rugcult.com/" target="_blank" rel="noopener" class="wlnk">rugcult.com ↗</a><a href="https://www.instagram.com/rugcult.co/" target="_blank" rel="noopener" class="wlnk">@rugcult.co ↗</a></div></div></div>
+    <div class="wcard reveal"><div class="wvis w2">MF</div><div class="wmeta"><div class="wcat">Perfume · Website + Social + Ads</div><h3 class="wtitle">Majesty Fusion</h3><p class="wdesc">Website development, social media management, script writing for reels, and ad campaigns for a perfume brand.</p><div class="wscope"><span class="wsco">WordPress</span><span class="wsco">Social Media</span><span class="wsco">Script Writing</span><span class="wsco">Ads</span></div><div class="wlinks"><a href="https://majestyfusion.com/" target="_blank" rel="noopener" class="wlnk">majestyfusion.com ↗</a><a href="https://www.instagram.com/majestyfusion_official/" target="_blank" rel="noopener" class="wlnk">@majestyfusion_official ↗</a></div></div></div>
+    <div class="wcard reveal"><div class="wvis w3">Apidear</div><div class="wmeta"><div class="wcat">Honey · Web + Social + SEO + Ads</div><h3 class="wtitle">Apidear Honey</h3><p class="wdesc">Website, organic social content, SEO blog writing, and ad campaigns for a premium honey brand.</p><div class="wscope"><span class="wsco">Website</span><span class="wsco">SEO</span><span class="wsco">Blogs</span><span class="wsco">Ads</span></div><div class="wlinks"><a href="https://www.instagram.com/apidear.com_/" target="_blank" rel="noopener" class="wlnk">@apidear.com_ ↗</a></div></div></div>
+    <div class="wcard reveal"><div class="wvis w4" style="font-size:1.4rem;text-align:center;line-height:1.4">Indra<br>Sugandh</div><div class="wmeta"><div class="wcat">Fragrance · Website + Social + Ads</div><h3 class="wtitle">Indra Sugandh Bhandar</h3><p class="wdesc">Website development, social media management, and ad campaigns for a traditional Indian fragrance brand.</p><div class="wscope"><span class="wsco">Website</span><span class="wsco">Social Media</span><span class="wsco">Ads</span></div><div class="wlinks"><a href="https://indrasugandh.com/" target="_blank" rel="noopener" class="wlnk">indrasugandh.com ↗</a><a href="https://www.instagram.com/indrasugandh_official/" target="_blank" rel="noopener" class="wlnk">@indrasugandh_official ↗</a></div></div></div>
+    <div class="wcard reveal"><div class="wvis w5" style="font-size:1.4rem;text-align:center;line-height:1.4">Tokyo<br>Sole</div><div class="wmeta"><div class="wcat">Shoes · Website + Social + Ads</div><h3 class="wtitle">Tokyo Sole</h3><p class="wdesc">Website development, Instagram content strategy, and performance ad campaigns for a contemporary footwear brand.</p><div class="wscope"><span class="wsco">Website</span><span class="wsco">Social Media</span><span class="wsco">Ads</span></div><div class="wlinks"><a href="https://tokyosole.com/" target="_blank" rel="noopener" class="wlnk">tokyosole.com ↗</a><a href="https://www.instagram.com/tokyosole.official/" target="_blank" rel="noopener" class="wlnk">@tokyosole.official ↗</a></div></div></div>
+    <div class="wcard reveal"><div class="wvis w6" style="font-size:1.3rem;text-align:center;line-height:1.4">Furnishing<br>Touch</div><div class="wmeta"><div class="wcat">Furnishing · B2B &amp; B2C</div><h3 class="wtitle">Furnishing Touch</h3><p class="wdesc">Social media management, pamphlet design, and Google Ads for a B2B &amp; B2C furnishing brand.</p><div class="wscope"><span class="wsco">Social Media</span><span class="wsco">Design</span><span class="wsco">Google Ads</span></div><div class="wlinks"><a href="https://www.instagram.com/furnishing.touch/" target="_blank" rel="noopener" class="wlnk">@furnishing.touch ↗</a></div></div></div>
+    <div class="wcard reveal"><div class="wvis w7">Halxi</div><div class="wmeta"><div class="wcat">Website Development</div><h3 class="wtitle">Halxi</h3><p class="wdesc">End-to-end website development — building a clean, functional web presence for the brand's digital launch.</p><div class="wscope"><span class="wsco">Website</span></div><div class="wlinks"><a href="https://halxi.com/" target="_blank" rel="noopener" class="wlnk">halxi.com ↗</a></div></div></div>
+    <div class="wcard reveal"><div class="wvis w8" style="font-size:1.3rem;text-align:center;line-height:1.4">Merak<br>Home</div><div class="wmeta"><div class="wcat">Bedsheets · Social Media + Ads</div><h3 class="wtitle">Merak Home Furnishing</h3><p class="wdesc">Social media management and ad campaigns for a premium bedsheet brand targeting quality-conscious home buyers.</p><div class="wscope"><span class="wsco">Social Media</span><span class="wsco">Ads</span></div><div class="wlinks"><a href="https://www.instagram.com/merak_home_furnishing/" target="_blank" rel="noopener" class="wlnk">@merak_home_furnishing ↗</a></div></div></div>
+    <div class="wcard reveal"><div class="wvis w9">Koed</div><div class="wmeta"><div class="wcat">Education · Ads + Script Writing</div><h3 class="wtitle">Koed — University / PhD Education</h3><p class="wdesc">Ad campaigns and script writing for an education platform targeting university and PhD aspirants.</p><div class="wscope"><span class="wsco">Ads</span><span class="wsco">Script Writing</span></div></div></div>
   </div>
 </section>
 
-<!-- TOOLS -->
 <section class="tools" id="tools">
   <div class="sw">
     <div class="kicker">Tech Stack</div>
@@ -687,12 +391,11 @@ footer{
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="contact-wrap">
     <div class="con-left">
       <div>
-        <div class="kicker" style="color:var(--gold)"><span style="width:2rem;height:1px;background:var(--gold);display:inline-block"></span> Get In Touch</div>
+        <div class="kicker" style="color:var(--gold)"><span style="width:2rem;height:1px;background:var(--gold);display:inline-block;vertical-align:middle;margin-right:.9rem"></span>Get In Touch</div>
         <h2 class="con-hl">Let's work<br><em>together</em></h2>
         <p class="con-sub">Open for freelance and contract-based work. I work with e-commerce, B2C and B2B brands across categories.</p>
       </div>
@@ -700,22 +403,30 @@ footer{
     </div>
     <div class="con-right">
       <a href="mailto:kumari.ankita39316@gmail.com" class="clink">
-        <div class="cl-left"><span class="cl-lbl">Email</span><span class="cl-val">kumari.ankita39316@gmail.com</span></div>
+        <div class="cl-left">
+          <span class="cl-lbl">Email</span>
+          <span class="cl-val">kumari.ankita39316@gmail.com</span>
+        </div>
         <span class="cl-arr">→</span>
       </a>
-      <a href="https://wa.me/918920528928" target="_blank" class="clink">
-        <div class="cl-left"><span class="cl-lbl">WhatsApp</span><span class="cl-val">+91 89205 28928</span></div>
+      <a href="https://wa.me/918920528928" target="_blank" rel="noopener" class="clink">
+        <div class="cl-left">
+          <span class="cl-lbl">WhatsApp</span>
+          <span class="cl-val">+91 89205 28928</span>
+        </div>
         <span class="cl-arr">→</span>
       </a>
-      <a href="https://www.linkedin.com/in/ankita-kumari-441668280" target="_blank" class="clink">
-        <div class="cl-left"><span class="cl-lbl">LinkedIn</span><span class="cl-val">Ankita Kumari</span></div>
+      <a href="https://www.linkedin.com/in/ankita-kumari-441668280" target="_blank" rel="noopener" class="clink">
+        <div class="cl-left">
+          <span class="cl-lbl">LinkedIn</span>
+          <span class="cl-val">Ankita Kumari</span>
+        </div>
         <span class="cl-arr">→</span>
       </a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <span>© 2026 Ankita Kumari</span>
   <span>Digital Marketer</span>
@@ -723,7 +434,7 @@ footer{
 
 <script>
 function toggleMob(){
-  const m=document.getElementById('mobMenu'),o=document.getElementById('mobOverlay'),h=document.getElementById('ham');
+  var m=document.getElementById('mobMenu'),o=document.getElementById('mobOverlay'),h=document.getElementById('ham');
   if(m.classList.contains('open')){closeMob()}
   else{m.classList.add('open');o.classList.add('open');h.classList.add('open');document.body.style.overflow='hidden'}
 }
@@ -733,12 +444,16 @@ function closeMob(){
   document.getElementById('ham').classList.remove('open');
   document.body.style.overflow='';
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMob()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMob()});
 
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
-},{threshold:0.06});
-document.querySelectorAll('.reveal,.reveal-r').forEach(el=>obs.observe(el));
+// Reveal: skip entirely on touch to avoid opacity:0 trapping taps
+var isTouch=('ontouchstart' in window)||window.matchMedia('(hover:none)').matches;
+if(!isTouch){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')});
+  },{threshold:0.06});
+  document.querySelectorAll('.reveal,.reveal-r').forEach(function(el){obs.observe(el)});
+}
 </script>
 </body>
 </html>
