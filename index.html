@@ -126,7 +126,7 @@ section{padding:6rem 4rem;width:100%;overflow:hidden}
 .metric-box.featured .num{color:white}
 .metric-box.featured .label{color:rgba(255,255,255,.7)}
 
-/* SERVICES — no prices, clean layout */
+/* SERVICES */
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;width:100%}
 .service-card{
   background:var(--card-bg);border:1px solid rgba(26,18,9,.08);
@@ -190,21 +190,58 @@ section{padding:6rem 4rem;width:100%;overflow:hidden}
 .work-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(26,18,9,.1)}
 .work-card.featured{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr}
 
-/* Website screenshot preview */
+/* Website preview — INTERACTIVE */
 .work-visual{
   position:relative;overflow:hidden;background:#f0ece4;
   display:flex;align-items:center;justify-content:center;
   height:220px;
 }
 .work-card.featured .work-visual{height:auto;min-height:280px}
-.work-visual iframe{
+
+/* iframe wrapper: starts as pointer-events:none, becomes interactive on click */
+.iframe-wrapper{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  overflow:hidden;
+}
+.iframe-wrapper iframe{
   position:absolute;top:0;left:0;
   width:1280px;height:800px;
   border:none;pointer-events:none;
   transform-origin:top left;
-  transform:scale(var(--iframe-scale, 0.25));
   display:block;
 }
+/* Overlay blocks clicks so the card link works; removed when user clicks "Interact" */
+.iframe-overlay{
+  position:absolute;inset:0;z-index:5;cursor:pointer;
+  display:flex;align-items:flex-end;justify-content:flex-end;
+  padding:.5rem .6rem;
+  background:transparent;
+  border:none;
+}
+.preview-badge{
+  display:flex;align-items:center;gap:.35rem;
+  font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(26,18,9,.6);color:rgba(255,255,255,.85);
+  padding:.3rem .65rem;border-radius:2px;backdrop-filter:blur(4px);
+  pointer-events:none;transition:background .2s;
+}
+.iframe-overlay:hover .preview-badge{background:var(--terracotta)}
+.preview-badge svg{width:10px;height:10px;flex-shrink:0}
+/* when interactive, iframe gets pointer-events */
+.iframe-wrapper.interactive iframe{pointer-events:auto;}
+.iframe-wrapper.interactive + .iframe-overlay{display:none;}
+/* exit button shown when interactive */
+.iframe-exit{
+  position:absolute;top:.5rem;left:.6rem;z-index:6;
+  display:none;align-items:center;gap:.3rem;
+  font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(196,80,42,.85);color:white;
+  padding:.28rem .6rem;border-radius:2px;border:none;cursor:pointer;
+  backdrop-filter:blur(4px);font-family:'DM Sans',sans-serif;
+}
+.iframe-exit svg{width:10px;height:10px}
+.iframe-wrapper.interactive ~ .iframe-exit{display:flex;}
+
 .work-visual-fallback{
   display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;
   width:100%;height:100%;font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;
@@ -212,13 +249,33 @@ section{padding:6rem 4rem;width:100%;overflow:hidden}
   position:absolute;top:0;left:0;
 }
 .work-visual-fallback small{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:400;letter-spacing:.05em;opacity:.7}
-.preview-label{
-  position:absolute;bottom:.5rem;right:.75rem;
-  font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;
-  background:rgba(26,18,9,.5);color:rgba(255,255,255,.8);
-  padding:.2rem .5rem;border-radius:2px;backdrop-filter:blur(4px);
-  z-index:2;
+
+/* Social-only card visual */
+.social-visual{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:.6rem;
+  padding:1.25rem;
 }
+.social-visual-handle{
+  font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;
+  color:white;text-align:center;line-height:1.2;
+}
+.social-visual-handle small{
+  display:block;font-family:'DM Sans',sans-serif;font-size:.72rem;
+  font-weight:400;letter-spacing:.08em;opacity:.7;margin-top:.25rem;text-transform:uppercase;
+}
+.social-visual-links{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.35rem}
+.social-pill{
+  display:inline-flex;align-items:center;gap:.3rem;
+  background:rgba(255,255,255,.18);color:white;
+  padding:.28rem .7rem;border-radius:20px;
+  font-size:.7rem;letter-spacing:.05em;text-decoration:none;
+  border:1px solid rgba(255,255,255,.25);transition:background .18s;
+  backdrop-filter:blur(4px);
+}
+.social-pill:hover{background:rgba(255,255,255,.32)}
+.social-pill svg{width:11px;height:11px;flex-shrink:0}
+
 .bg-tc{background:var(--terracotta)}
 .bg-dp{background:var(--deep)}
 .bg-gd{background:var(--gold)}
@@ -276,66 +333,6 @@ section{padding:6rem 4rem;width:100%;overflow:hidden}
 }
 .contact-link:hover{border-color:var(--gold);color:var(--gold)}
 
-/* FOOTER */
-footer{
-  background:var(--deep);border-top:1px solid rgba(245,240,232,.08);
-  padding:1.5rem 4rem;display:flex;justify-content:space-between;align-items:center;
-  font-size:.78rem;color:rgba(245,240,232,.35);
-}
-
-/* MODAL */
-.modal-overlay{
-  position:fixed;inset:0;z-index:500;
-  background:rgba(26,18,9,.72);backdrop-filter:blur(4px);
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .25s;padding:1rem;
-}
-.modal-overlay.open{opacity:1;pointer-events:all}
-.modal{
-  background:var(--cream);max-width:480px;width:100%;padding:2.5rem;border-radius:6px;
-  transform:translateY(20px);transition:transform .3s ease;position:relative;
-  max-height:90vh;overflow-y:auto;
-}
-.modal-overlay.open .modal{transform:translateY(0)}
-.modal-close{position:absolute;top:1rem;right:1.2rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--warm-gray);transition:color .2s}
-.modal-close:hover{color:var(--terracotta)}
-.modal-success-view{display:none;text-align:center;padding:1.5rem 0}
-.modal.submitted .modal-form-view{display:none}
-.modal.submitted .modal-success-view{display:block}
-.modal-greeting{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:.4rem}
-.modal-greeting em{font-style:italic;color:var(--terracotta)}
-.modal-sub{font-size:.88rem;color:var(--warm-gray);margin-bottom:1.75rem;line-height:1.6}
-.modal-field{margin-bottom:1rem}
-.modal-field label{display:block;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--warm-gray);margin-bottom:.4rem}
-.modal-field input,.modal-field textarea,.modal-field select{
-  width:100%;padding:.75rem 1rem;border:1px solid rgba(26,18,9,.15);border-radius:2px;
-  font-family:'DM Sans',sans-serif;font-size:.9rem;background:white;color:var(--deep);
-  transition:border-color .2s;outline:none;
-}
-.modal-field input:focus,.modal-field textarea:focus,.modal-field select:focus{border-color:var(--terracotta)}
-.modal-field textarea{resize:vertical;min-height:90px}
-.modal-submit{
-  width:100%;margin-top:.5rem;background:var(--terracotta);color:white;
-  padding:.9rem;border:none;border-radius:2px;font-family:'DM Sans',sans-serif;
-  font-size:.85rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
-  cursor:pointer;transition:background .2s,transform .15s;
-}
-.modal-submit:hover{background:#A83E1E;transform:translateY(-1px)}
-.success-icon{font-size:3rem;margin-bottom:1rem}
-.success-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin-bottom:.5rem}
-.success-title em{color:var(--terracotta);font-style:italic}
-.success-msg{font-size:.9rem;color:var(--warm-gray);line-height:1.7;margin-bottom:1.75rem}
-.success-actions{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
-.success-btn{
-  padding:.7rem 1.5rem;border-radius:2px;font-size:.82rem;font-weight:500;
-  letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .2s;
-  border:none;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block;
-}
-.success-btn.primary{background:var(--terracotta);color:white}
-.success-btn.primary:hover{background:#A83E1E}
-.success-btn.outline{background:none;border:1px solid var(--deep);color:var(--deep)}
-.success-btn.outline:hover{background:var(--deep);color:var(--cream)}
-
 /* PHONE MODAL */
 .phone-modal-overlay{
   position:fixed;inset:0;z-index:500;
@@ -365,6 +362,22 @@ footer{
 /* ANIMATIONS */
 .fade-up{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
 .fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* FOOTER */
+footer{
+  background:var(--deep);border-top:1px solid rgba(245,240,232,.08);
+  padding:1.5rem 4rem;display:flex;justify-content:space-between;align-items:center;
+  font-size:.78rem;color:rgba(245,240,232,.35);
+}
+.footer-availability{
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.75rem;color:var(--gold);letter-spacing:.05em;
+}
+.footer-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--gold);
+  animation:pulse 2s ease-in-out infinite;flex-shrink:0;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
 
 /* RESPONSIVE */
 @media(max-width:1100px){.tools-grid{grid-template-columns:repeat(3,1fr)}}
@@ -398,44 +411,6 @@ footer{
 </head>
 <body>
 
-<!-- CONTACT MODAL -->
-<div class="modal-overlay" id="contactModal">
-  <div class="modal" id="modalBox">
-    <button class="modal-close" onclick="closeModal()">&times;</button>
-    <div class="modal-form-view">
-      <div class="modal-greeting">Hey there, <em>let's talk!</em></div>
-      <p class="modal-sub">Tell me about yourself and your brand — I'll get back within 24 hours.</p>
-      <div class="modal-field"><label>Your Name *</label><input type="text" id="modalName" placeholder="What should I call you?" /></div>
-      <div class="modal-field"><label>Email Address *</label><input type="email" id="modalEmail" placeholder="your@email.com" /></div>
-      <div class="modal-field"><label>Phone / WhatsApp</label><input type="tel" id="modalPhone" placeholder="+91 98765 XXXXX" /></div>
-      <div class="modal-field">
-        <label>Service Interested In</label>
-        <select id="modalService">
-          <option value="">Select a service…</option>
-          <option>Social Media Management</option>
-          <option>Web Development (Shopify / WordPress / Wix)</option>
-          <option>Meta Ads / Google Ads</option>
-          <option>SEO &amp; Content</option>
-          <option>Analytics</option>
-          <option>E-commerce Marketing (Full Package)</option>
-          <option>Other / Not Sure Yet</option>
-        </select>
-      </div>
-      <div class="modal-field"><label>Tell Me About Your Brand</label><textarea id="modalMsg" placeholder="What does your brand do and what are you looking to achieve?"></textarea></div>
-      <button class="modal-submit" onclick="submitModal()">Send Message →</button>
-    </div>
-    <div class="modal-success-view">
-      <div class="success-icon">🎉</div>
-      <div class="success-title">Thanks, <em id="successName">friend</em>!</div>
-      <p class="success-msg">Your message is in my inbox. I'll review your requirements and reach out within <strong>24 hours</strong>. Looking forward to working together!</p>
-      <div class="success-actions">
-        <button class="success-btn primary" onclick="closeModal()">Back to Portfolio</button>
-        <a href="mailto:kumari.ankita39316@gmail.com" class="success-btn outline">Email Directly</a>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- PHONE MODAL -->
 <div class="phone-modal-overlay" id="phoneModal">
   <div class="phone-modal">
@@ -458,7 +433,7 @@ footer{
   <a href="#work" onclick="closeMobileMenu()">Work</a>
   <a href="#tools" onclick="closeMobileMenu()">Tools</a>
   <a href="#contact" onclick="closeMobileMenu()">Contact</a>
-  <a href="#contact" class="mobile-menu-cta" onclick="closeMobileMenu();openModal()">Get In Touch</a>
+  <a href="mailto:kumari.ankita39316@gmail.com" class="mobile-menu-cta" onclick="closeMobileMenu()">Get In Touch</a>
 </div>
 
 <!-- NAV -->
@@ -490,7 +465,7 @@ footer{
     <p class="hero-tagline">I help brands grow their online presence — through performance campaigns, sharp content, and websites that convert.</p>
     <div class="hero-cta">
       <a href="#work" class="btn-primary">View My Work</a>
-      <button class="btn-outline" onclick="openModal()">Get In Touch</button>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
     </div>
   </div>
   <div class="hero-stats">
@@ -534,7 +509,7 @@ footer{
   </div>
 </section>
 
-<!-- SERVICES — prices removed -->
+<!-- SERVICES -->
 <section id="services">
   <div class="section-label">What I Do</div>
   <h2 class="section-title">Services</h2>
@@ -608,18 +583,28 @@ footer{
   </div>
 </section>
 
-<!-- WORK — with website screenshot previews -->
+<!-- WORK -->
 <section class="work" id="work">
   <div class="section-label">Portfolio</div>
   <h2 class="section-title">Selected Work <span style="font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:400;color:var(--warm-gray);">— 12+ brands</span></h2>
   <div class="work-grid">
 
-    <!-- Rugcult FEATURED -->
+    <!-- Rugcult FEATURED — live site -->
     <div class="work-card featured fade-up">
-      <div class="work-visual bg-tc" id="vis-rugcult">
-        <iframe id="iframe-rugcult" src="https://rugcult.com/" scrolling="no" tabindex="-1" aria-hidden="true" title="Rugcult website preview"></iframe>
-        <div class="work-visual-fallback" id="fallback-rugcult" style="display:none">Rugcult<small>rugcult.com</small></div>
-        <span class="preview-label">Live Preview</span>
+      <div class="work-visual bg-tc">
+        <div class="iframe-wrapper" id="wrap-rugcult">
+          <iframe src="https://rugcult.com/" scrolling="no" tabindex="-1" title="Rugcult website preview" loading="lazy"></iframe>
+        </div>
+        <button class="iframe-overlay" onclick="makeInteractive('rugcult',event)" aria-label="Click to interact with Rugcult website">
+          <span class="preview-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-linecap="round"/></svg>
+            Click to interact
+          </span>
+        </button>
+        <button class="iframe-exit" id="exit-rugcult" onclick="exitInteractive('rugcult',event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
+          Exit
+        </button>
       </div>
       <div class="work-info">
         <div class="work-category">Rugs · E-commerce</div>
@@ -633,12 +618,22 @@ footer{
       </div>
     </div>
 
-    <!-- Majesty Fusion -->
+    <!-- Majesty Fusion — live site -->
     <div class="work-card fade-up">
-      <div class="work-visual bg-dp" id="vis-mf">
-        <iframe id="iframe-mf" src="https://majestyfusion.com/" scrolling="no" tabindex="-1" aria-hidden="true" title="Majesty Fusion website preview"></iframe>
-        <div class="work-visual-fallback" id="fallback-mf" style="display:none">MF<small>majestyfusion.com</small></div>
-        <span class="preview-label">Live Preview</span>
+      <div class="work-visual bg-dp">
+        <div class="iframe-wrapper" id="wrap-mf">
+          <iframe src="https://majestyfusion.com/" scrolling="no" tabindex="-1" title="Majesty Fusion website preview" loading="lazy"></iframe>
+        </div>
+        <button class="iframe-overlay" onclick="makeInteractive('mf',event)" aria-label="Click to interact">
+          <span class="preview-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-linecap="round"/></svg>
+            Click to interact
+          </span>
+        </button>
+        <button class="iframe-exit" id="exit-mf" onclick="exitInteractive('mf',event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
+          Exit
+        </button>
       </div>
       <div class="work-info">
         <div class="work-category">Perfume · Website + Social + Ads</div>
@@ -652,29 +647,48 @@ footer{
       </div>
     </div>
 
-    <!-- Apidear -->
+    <!-- Apidear — social only (no live website) -->
     <div class="work-card fade-up">
-      <div class="work-visual bg-gd" id="vis-apidear">
-        <div class="work-visual-fallback">Apidear<small>Honey Brand</small></div>
-        <span class="preview-label">Social + SEO</span>
+      <div class="work-visual bg-gd">
+        <div class="social-visual">
+          <div class="work-visual-fallback" style="position:relative;top:auto;left:auto;width:auto;height:auto;">
+            Apidear<small>Honey Brand</small>
+          </div>
+          <div class="social-visual-links">
+            <a href="https://www.instagram.com/apidear.com_/" target="_blank" class="social-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              @apidear.com_
+            </a>
+          </div>
+        </div>
       </div>
       <div class="work-info">
-        <div class="work-category">Honey · Web + Social + SEO + Ads</div>
+        <div class="work-category">Honey · Social + SEO + Ads</div>
         <h3>Apidear Honey</h3>
-        <p>Website, organic social content, SEO blog writing, and ad campaigns for a premium honey brand.</p>
-        <div class="work-result">Website + Social Media + Blogs + SEO + Ads</div>
+        <p>Organic social content, SEO blog writing, and ad campaigns for a premium honey brand.</p>
+        <div class="work-result">Social Media + Blogs + SEO + Ads</div>
         <div class="work-links">
           <a href="https://www.instagram.com/apidear.com_/" target="_blank" class="work-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@apidear.com_</a>
         </div>
       </div>
     </div>
 
-    <!-- Indra Sugandh -->
+    <!-- Indra Sugandh — live site -->
     <div class="work-card fade-up">
-      <div class="work-visual bg-rs" id="vis-indra">
-        <iframe id="iframe-indra" src="https://indrasugandh.com/" scrolling="no" tabindex="-1" aria-hidden="true" title="Indra Sugandh website preview"></iframe>
-        <div class="work-visual-fallback" id="fallback-indra" style="display:none">Indra Sugandh<small>Fragrance Brand</small></div>
-        <span class="preview-label">Live Preview</span>
+      <div class="work-visual bg-rs">
+        <div class="iframe-wrapper" id="wrap-indra">
+          <iframe src="https://indrasugandh.com/" scrolling="no" tabindex="-1" title="Indra Sugandh website preview" loading="lazy"></iframe>
+        </div>
+        <button class="iframe-overlay" onclick="makeInteractive('indra',event)" aria-label="Click to interact">
+          <span class="preview-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-linecap="round"/></svg>
+            Click to interact
+          </span>
+        </button>
+        <button class="iframe-exit" id="exit-indra" onclick="exitInteractive('indra',event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
+          Exit
+        </button>
       </div>
       <div class="work-info">
         <div class="work-category">Fragrance · Website + Social + Ads</div>
@@ -688,12 +702,22 @@ footer{
       </div>
     </div>
 
-    <!-- Tokyo Sole -->
+    <!-- Tokyo Sole — live site -->
     <div class="work-card fade-up">
-      <div class="work-visual bg-sl" id="vis-tokyo">
-        <iframe id="iframe-tokyo" src="https://tokyosole.com/" scrolling="no" tabindex="-1" aria-hidden="true" title="Tokyo Sole website preview"></iframe>
-        <div class="work-visual-fallback" id="fallback-tokyo" style="display:none">Tokyo Sole<small>Footwear Brand</small></div>
-        <span class="preview-label">Live Preview</span>
+      <div class="work-visual bg-sl">
+        <div class="iframe-wrapper" id="wrap-tokyo">
+          <iframe src="https://tokyosole.com/" scrolling="no" tabindex="-1" title="Tokyo Sole website preview" loading="lazy"></iframe>
+        </div>
+        <button class="iframe-overlay" onclick="makeInteractive('tokyo',event)" aria-label="Click to interact">
+          <span class="preview-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-linecap="round"/></svg>
+            Click to interact
+          </span>
+        </button>
+        <button class="iframe-exit" id="exit-tokyo" onclick="exitInteractive('tokyo',event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
+          Exit
+        </button>
       </div>
       <div class="work-info">
         <div class="work-category">Shoes · Website + Social + Ads</div>
@@ -707,10 +731,20 @@ footer{
       </div>
     </div>
 
-    <!-- Furnishing Touch -->
+    <!-- Furnishing Touch — social only -->
     <div class="work-card fade-up">
       <div class="work-visual bg-wm">
-        <div class="work-visual-fallback">Furnishing Touch<small>B2B &amp; B2C Furnishing</small></div>
+        <div class="social-visual">
+          <div class="work-visual-fallback" style="position:relative;top:auto;left:auto;width:auto;height:auto;">
+            Furnishing Touch<small>B2B &amp; B2C Furnishing</small>
+          </div>
+          <div class="social-visual-links">
+            <a href="https://www.instagram.com/furnishing.touch/" target="_blank" class="social-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              @furnishing.touch
+            </a>
+          </div>
+        </div>
       </div>
       <div class="work-info">
         <div class="work-category">Furnishing · B2B &amp; B2C</div>
@@ -723,12 +757,22 @@ footer{
       </div>
     </div>
 
-    <!-- Halxi -->
+    <!-- Halxi — live site -->
     <div class="work-card fade-up">
-      <div class="work-visual bg-tl" id="vis-halxi">
-        <iframe id="iframe-halxi" src="https://halxi.com/" scrolling="no" tabindex="-1" aria-hidden="true" title="Halxi website preview"></iframe>
-        <div class="work-visual-fallback" id="fallback-halxi" style="display:none">Halxi<small>halxi.com</small></div>
-        <span class="preview-label">Live Preview</span>
+      <div class="work-visual bg-tl">
+        <div class="iframe-wrapper" id="wrap-halxi">
+          <iframe src="https://halxi.com/" scrolling="no" tabindex="-1" title="Halxi website preview" loading="lazy"></iframe>
+        </div>
+        <button class="iframe-overlay" onclick="makeInteractive('halxi',event)" aria-label="Click to interact">
+          <span class="preview-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-linecap="round"/></svg>
+            Click to interact
+          </span>
+        </button>
+        <button class="iframe-exit" id="exit-halxi" onclick="exitInteractive('halxi',event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
+          Exit
+        </button>
       </div>
       <div class="work-info">
         <div class="work-category">Website Development</div>
@@ -741,10 +785,20 @@ footer{
       </div>
     </div>
 
-    <!-- Merak Home -->
+    <!-- Merak Home — social only -->
     <div class="work-card fade-up">
       <div class="work-visual bg-in">
-        <div class="work-visual-fallback">Merak Home<small>Bedsheets &amp; Furnishing</small></div>
+        <div class="social-visual">
+          <div class="work-visual-fallback" style="position:relative;top:auto;left:auto;width:auto;height:auto;">
+            Merak Home<small>Bedsheets &amp; Furnishing</small>
+          </div>
+          <div class="social-visual-links">
+            <a href="https://www.instagram.com/merak_home_furnishing/" target="_blank" class="social-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              @merak_home_furnishing
+            </a>
+          </div>
+        </div>
       </div>
       <div class="work-info">
         <div class="work-category">Bedsheets · Social Media + Ads</div>
@@ -757,10 +811,17 @@ footer{
       </div>
     </div>
 
-    <!-- Koed -->
+    <!-- Koed — social only -->
     <div class="work-card fade-up">
       <div class="work-visual bg-ol">
-        <div class="work-visual-fallback">Koed<small>Education Platform</small></div>
+        <div class="social-visual">
+          <div class="work-visual-fallback" style="position:relative;top:auto;left:auto;width:auto;height:auto;">
+            Koed<small>Education Platform</small>
+          </div>
+          <div class="social-visual-links">
+            <span class="social-pill" style="cursor:default;opacity:.7;">Ads + Script Writing</span>
+          </div>
+        </div>
       </div>
       <div class="work-info">
         <div class="work-category">Education · Ads + Script Writing</div>
@@ -800,16 +861,12 @@ footer{
     Get In Touch
   </div>
   <h2 class="section-title">Let's work<br><em style="color:var(--gold);">together</em></h2>
-  <p class="contact-sub">Open for freelance projects, and contract-based projects.<br>I work with e-commerce, B2C and B2B brands across categories.</p>
+  <p class="contact-sub">Open for freelance, contract &amp; full-time roles.<br>I work with e-commerce, B2C and B2B brands across categories.</p>
   <div class="contact-links">
     <a href="mailto:kumari.ankita39316@gmail.com" class="contact-link">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
       Email Me
     </a>
-    <button class="contact-link" onclick="openModal()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-      Send a Message
-    </button>
     <button class="contact-link" onclick="openPhoneModal()">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.06 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" stroke-linecap="round"/></svg>
       Call / WhatsApp
@@ -824,58 +881,57 @@ footer{
 <!-- FOOTER -->
 <footer>
   <span>© 2026 Ankita Kumari</span>
+  <div class="footer-availability">
+    <span class="footer-dot"></span>
+    Open for full-time · freelance · contract
+  </div>
   <span>Digital Marketer · Noida</span>
 </footer>
 
 <script>
 // ── IFRAME SCALE ──
-// Scale iframes to fit the card preview area
 function scaleIframes() {
   document.querySelectorAll('.work-visual').forEach(function(vis) {
-    const iframe = vis.querySelector('iframe');
+    var wrapper = vis.querySelector('.iframe-wrapper');
+    if (!wrapper) return;
+    var iframe = wrapper.querySelector('iframe');
     if (!iframe) return;
-    const containerW = vis.offsetWidth;
-    const containerH = vis.offsetHeight;
-    const scale = Math.min(containerW / 1280, containerH / 800);
+    var containerW = vis.offsetWidth;
+    var containerH = vis.offsetHeight;
+    var scale = Math.min(containerW / 1280, containerH / 800);
     iframe.style.transform = 'scale(' + scale + ')';
-    iframe.style.transformOrigin = 'top left';
     iframe.style.width = '1280px';
     iframe.style.height = Math.ceil(containerH / scale) + 'px';
   });
 }
 window.addEventListener('load', scaleIframes);
 window.addEventListener('resize', scaleIframes);
-setTimeout(scaleIframes, 500);
+setTimeout(scaleIframes, 400);
 
-// Handle iframe load errors — show fallback
-document.querySelectorAll('.work-visual iframe').forEach(function(iframe) {
-  var id = iframe.id.replace('iframe-', '');
-  iframe.addEventListener('error', function() {
-    iframe.style.display = 'none';
-    var fb = document.getElementById('fallback-' + id);
-    if (fb) fb.style.display = 'flex';
-    var lbl = iframe.closest('.work-visual').querySelector('.preview-label');
-    if (lbl) lbl.style.display = 'none';
-  });
-  // Timeout fallback — if iframe doesn't load in 8s, show fallback
-  setTimeout(function() {
-    try {
-      // If we can't access contentDocument, it may have loaded cross-origin (fine)
-      // If completely blank, show fallback
-    } catch(e) {}
-  }, 8000);
-});
+// ── INTERACTIVE PREVIEW ──
+function makeInteractive(id, e) {
+  e && e.stopPropagation && e.stopPropagation();
+  var wrapper = document.getElementById('wrap-' + id);
+  if (wrapper) wrapper.classList.add('interactive');
+  // resize so iframe fills properly when interactive
+  setTimeout(scaleIframes, 50);
+}
+function exitInteractive(id, e) {
+  e && e.stopPropagation && e.stopPropagation();
+  var wrapper = document.getElementById('wrap-' + id);
+  if (wrapper) wrapper.classList.remove('interactive');
+}
 
 // ── FADE UP ──
-const obs = new IntersectionObserver(function(entries) {
+var obs = new IntersectionObserver(function(entries) {
   entries.forEach(function(e) { if(e.isIntersecting) e.target.classList.add('visible'); });
 }, {threshold:0.1});
 document.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
 
 // ── MOBILE MENU ──
 function toggleMobileMenu(){
-  const menu = document.getElementById('mobileMenu');
-  const btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobileMenu');
+  var btn = document.getElementById('hamburger');
   if(menu.classList.contains('open')){ closeMobileMenu(); }
   else { menu.classList.add('open'); btn.classList.add('open'); document.body.style.overflow='hidden'; }
 }
@@ -885,62 +941,14 @@ function closeMobileMenu(){
   document.body.style.overflow='';
 }
 
-// ── CONTACT MODAL ──
-let formSubmitted = false;
-function openModal() {
-  document.getElementById('contactModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  if(!formSubmitted) document.getElementById('modalBox').classList.remove('submitted');
-}
-function closeModal() {
-  document.getElementById('contactModal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-async function submitModal() {
-  const nameEl = document.getElementById('modalName');
-  const emailEl = document.getElementById('modalEmail');
-  nameEl.style.borderColor = '';
-  emailEl.style.borderColor = '';
-  if(!nameEl.value.trim()){ nameEl.style.borderColor='var(--terracotta)'; nameEl.focus(); return; }
-  if(!emailEl.value.trim() || !emailEl.value.includes('@')){ emailEl.style.borderColor='var(--terracotta)'; emailEl.focus(); return; }
-  const btn = document.querySelector('.modal-submit');
-  btn.textContent = 'Sending…';
-  btn.disabled = true;
-  const data = {
-    name: nameEl.value.trim(),
-    email: document.getElementById('modalEmail').value.trim(),
-    phone: document.getElementById('modalPhone').value.trim(),
-    service: document.getElementById('modalService').value,
-    message: document.getElementById('modalMsg').value.trim()
-  };
-  try {
-    const res = await fetch('https://formspree.io/f/xeenrdpd', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    if(res.ok) {
-      document.getElementById('successName').textContent = data.name;
-      document.getElementById('modalBox').classList.add('submitted');
-      formSubmitted = true;
-      ['modalName','modalEmail','modalPhone','modalService','modalMsg'].forEach(function(id) {
-        const el = document.getElementById(id); if(el) el.value = '';
-      });
-    } else { alert('Something went wrong. Please email me directly.'); }
-  } catch(err) { alert('Could not send. Please email me directly.'); }
-  btn.textContent = 'Send Message →';
-  btn.disabled = false;
-}
-document.getElementById('contactModal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
-
 // ── PHONE MODAL ──
 function openPhoneModal(){ document.getElementById('phoneModal').classList.add('open'); document.body.style.overflow='hidden'; }
 function closePhoneModal(){ document.getElementById('phoneModal').classList.remove('open'); document.body.style.overflow=''; }
 document.getElementById('phoneModal').addEventListener('click', function(e){ if(e.target===this) closePhoneModal(); });
-document.addEventListener('keydown', function(e){ if(e.key==='Escape'){closeModal();closePhoneModal();closeMobileMenu();} });
+document.addEventListener('keydown', function(e){ if(e.key==='Escape'){closePhoneModal();closeMobileMenu();} });
 
 // ── SEARCH ──
-const searchIndex = [
+var searchIndex = [
   {label:'About Me',cat:'Section',href:'#about'},
   {label:'Services',cat:'Section',href:'#services'},
   {label:'Selected Work',cat:'Section',href:'#work'},
@@ -966,14 +974,13 @@ const searchIndex = [
   {label:'Merak Home Furnishing — Bedsheets',cat:'Brand',href:'#work'},
   {label:'Koed — Education',cat:'Brand',href:'#work'},
   {label:'Email',cat:'Contact',href:'mailto:kumari.ankita39316@gmail.com'},
-  {label:'Get In Touch / Message',cat:'Contact',href:'#contact'},
   {label:'Call / WhatsApp',cat:'Contact',href:'#contact'},
 ];
 function doSearch(q) {
-  const dd = document.getElementById('searchDropdown');
+  var dd = document.getElementById('searchDropdown');
   q = q.trim().toLowerCase();
   if(!q){ dd.classList.remove('open'); dd.innerHTML=''; return; }
-  const results = searchIndex.filter(function(item){ return item.label.toLowerCase().includes(q); }).slice(0,8);
+  var results = searchIndex.filter(function(item){ return item.label.toLowerCase().includes(q); }).slice(0,8);
   if(!results.length){ dd.innerHTML = '<div class="search-empty">No results found</div>'; }
   else { dd.innerHTML = results.map(function(r){ return '<a class="search-item" href="'+r.href+'" onclick="clearSearch()">'+r.label+'<span class="search-item-cat">'+r.cat+'</span></a>'; }).join(''); }
   dd.classList.add('open');
