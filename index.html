@@ -223,10 +223,9 @@ nav{
 .work{background:var(--page);border-bottom:1px solid var(--rule)}
 .work .sw{padding-bottom:0}
 
-/* Fixed grid — no span on mobile */
 .wgrid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1fr 1fr 1fr;
   gap:1px;
   background:var(--rule);
   border:1px solid var(--rule);
@@ -240,16 +239,8 @@ nav{
 }
 .wcard:hover{transform:translateY(-4px);box-shadow:0 20px 56px rgba(26,20,16,.1);z-index:1}
 
-/* Featured card spans 2 on desktop only */
-.wcard.feat{grid-column:span 2;flex-direction:row}
-.wcard.feat .wvis{flex:1;min-height:280px;height:auto}
-.wcard.feat .wmeta{flex:1}
-
-/* Full-width card (Koed) spans 2 on desktop */
-.wcard.full{grid-column:span 2}
-
 .wvis{
-  height:200px;display:flex;align-items:center;justify-content:center;
+  height:180px;display:flex;align-items:center;justify-content:center;
   font-family:'Cormorant Garamond',serif;font-size:2rem;font-style:italic;font-weight:300;
   overflow:hidden;transition:filter .3s;flex-shrink:0;
 }
@@ -352,11 +343,10 @@ footer{
   .about-grid{grid-template-columns:1fr;gap:2.5rem}
   .svc-grid{grid-template-columns:1fr 1fr}
 
-  /* Work section — single column on mobile, NO span overrides */
-  .wgrid{grid-template-columns:1fr}
-  .wcard.feat{grid-column:1;flex-direction:column}
-  .wcard.feat .wvis{min-height:200px;height:200px}
-  .wcard.full{grid-column:1}
+  /* Work section — 2 col on tablet, 1 col on mobile */
+  .wgrid{grid-template-columns:1fr 1fr}
+  .wcard.feat{flex-direction:column}
+  .wcard.feat .wvis{height:180px}
 
   .tgrid{grid-template-columns:repeat(3,1fr)}
 
@@ -371,6 +361,7 @@ footer{
   .tgrid{grid-template-columns:repeat(2,1fr)}
   .abox-grid{grid-template-columns:1fr}
   .abox.feat,.abox.wide{grid-column:1}
+  .wgrid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -523,8 +514,8 @@ footer{
   </div>
   <div class="wgrid">
 
-    <!-- Featured: Rugcult (2-col on desktop, stacked on mobile) -->
-    <div class="wcard feat reveal">
+    <!-- Rugcult -->
+    <div class="wcard reveal">
       <div class="wvis w1">Rugcult</div>
       <div class="wmeta">
         <div class="wcat">Rugs · E-commerce</div>
@@ -538,7 +529,7 @@ footer{
       </div>
     </div>
 
-    <!-- Row 2 -->
+    <!-- Majesty Fusion -->
     <div class="wcard reveal">
       <div class="wvis w2">MF</div>
       <div class="wmeta">
@@ -565,7 +556,7 @@ footer{
       </div>
     </div>
 
-    <!-- Row 3 -->
+    <!-- Indra Sugandh -->
     <div class="wcard reveal">
       <div class="wvis w4" style="font-size:1.4rem;text-align:center;line-height:1.4">Indra<br>Sugandh</div>
       <div class="wmeta">
@@ -593,7 +584,7 @@ footer{
       </div>
     </div>
 
-    <!-- Row 4 -->
+    <!-- Furnishing Touch -->
     <div class="wcard reveal">
       <div class="wvis w6" style="font-size:1.3rem;text-align:center;line-height:1.4">Furnishing<br>Touch</div>
       <div class="wmeta">
@@ -619,7 +610,7 @@ footer{
       </div>
     </div>
 
-    <!-- Row 5 -->
+    <!-- Merak Home -->
     <div class="wcard reveal">
       <div class="wvis w8" style="font-size:1.3rem;text-align:center;line-height:1.4">Merak<br>Home</div>
       <div class="wmeta">
