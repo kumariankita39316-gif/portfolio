@@ -182,6 +182,11 @@ nav{
 .exp-n{font-size:.82rem;font-weight:500;transition:color .22s}
 .exp-arr{font-size:.85rem;color:var(--terra);opacity:0;transition:opacity .2s,transform .2s;transform:translateX(-4px)}
 .exp-row:hover .exp-arr{opacity:1;transform:translateX(0)}
+@media(hover:none){
+  .exp-arr{opacity:1 !important;transform:none !important}
+  .exp-row{padding-left:0 !important}
+  .exp-row::before{display:none}
+}
 
 /* Stats grid */
 .abox-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule)}
@@ -269,7 +274,10 @@ nav{
 .wlinks{display:flex;gap:1.25rem;margin-top:1rem;flex-wrap:wrap}
 .wlnk{
   font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  text-decoration:none;color:var(--muted);border-bottom:1px solid var(--rule);padding-bottom:.2rem;
+  text-decoration:none;color:var(--muted);border-bottom:1px solid var(--rule);
+  padding:.4rem 0;
+  -webkit-tap-highlight-color:rgba(181,96,58,.15);
+  display:inline-block;
   transition:color .2s,border-color .2s;
 }
 .wlnk:hover{color:var(--terra);border-color:var(--terra)}
@@ -295,16 +303,24 @@ nav{
 .clink{
   display:flex;align-items:center;justify-content:space-between;
   padding:1.5rem 0;border-bottom:1px solid var(--rule);
-  text-decoration:none;color:var(--ink);transition:color .22s,padding-left .22s;
+  text-decoration:none;color:var(--ink);
+  transition:color .22s,padding-left .22s;
+  -webkit-tap-highlight-color:rgba(181,96,58,.12);
+  position:relative;
 }
 .clink:first-child{border-top:1px solid var(--rule)}
 .clink:hover{color:var(--terra);padding-left:.5rem}
-.cl-left{display:flex;flex-direction:column;gap:.3rem}
+.cl-left{display:flex;flex-direction:column;gap:.3rem;flex:1;min-width:0}
 .cl-lbl{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);transition:color .22s}
 .clink:hover .cl-lbl{color:var(--terra)}
-.cl-val{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;font-weight:400}
-.cl-arr{color:var(--terra);opacity:0;transition:opacity .22s,transform .22s;transform:translateX(-6px);font-size:1.1rem}
+.cl-val{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;font-weight:400;word-break:break-all}
+.cl-arr{color:var(--terra);font-size:1.1rem;flex-shrink:0;margin-left:1rem;
+  opacity:0;transition:opacity .22s,transform .22s;transform:translateX(-6px)}
 .clink:hover .cl-arr{opacity:1;transform:translateX(0)}
+@media(hover:none){
+  .clink{padding-left:0 !important}
+  .cl-arr{opacity:1 !important;transform:none !important}
+}
 
 /* ── FOOTER ── */
 footer{
@@ -362,6 +378,19 @@ footer{
   .abox-grid{grid-template-columns:1fr}
   .abox.feat,.abox.wide{grid-column:1}
   .wgrid{grid-template-columns:1fr}
+}
+/* ── GLOBAL MOBILE TOUCH FIX ── */
+@media(hover:none),(pointer:coarse){
+  a,button{
+    -webkit-tap-highlight-color:rgba(181,96,58,.15);
+    touch-action:manipulation;
+    cursor:pointer;
+  }
+  /* Ensure no invisible overlay blocks taps */
+  .wcard::before,.svc::before,.exp-row::before{pointer-events:none}
+  /* Make all links easily tappable */
+  .wlnk{padding:.5rem 0;margin:-.3rem 0}
+  .nav-links a,.mobile-menu a{padding:.6rem 0;display:block}
 }
 </style>
 </head>
